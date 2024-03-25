@@ -36,9 +36,7 @@ public class TaskManager {
     }
 
     public void deleteTask(Task task) {
-        if (tasks.containsKey(task.getId())) {
-            tasks.remove(task.getId());
-        }
+        tasks.remove(task.getId());
     }
 
     public void deleteTask(Subtask subtask) {
