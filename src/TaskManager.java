@@ -25,8 +25,8 @@ public class TaskManager {
         return tasksList;
     }
 
-    public static ArrayList<Object> getSubTasks(int epicId) {
-        ArrayList<Object> tasksList = new ArrayList<>();
+    public static ArrayList<Subtask> getSubTasks(int epicId) {
+        ArrayList<Subtask> tasksList = new ArrayList<>();
         for (Integer subtask : subtasks.keySet()) {
             if (subtasks.get(subtask).getEpicId() == epicId) {
                 tasksList.add(subtasks.get(subtask));
