@@ -8,22 +8,16 @@ public class TaskManager {
 
 
     public static ArrayList<Object> getTasks(TaskType type) {
-        ArrayList<Object> tasksList = new ArrayList();
+        ArrayList<Object> tasksList = new ArrayList<>();
         switch (type) {
             case TASK:
-                for (Task task : tasks.values()) {
-                    tasksList.add(task);
-                }
+                tasksList.addAll(tasks.values());
                 break;
             case SUBTASK:
-                for (Subtask subtask : subtasks.values()) {
-                    tasksList.add(subtask);
-                }
+                tasksList.addAll(subtasks.values());
                 break;
             case EPIC:
-                for (Epic epic : epics.values()) {
-                    tasksList.add(epic);
-                }
+                tasksList.addAll(epics.values());
                 break;
             default:
                 break;
