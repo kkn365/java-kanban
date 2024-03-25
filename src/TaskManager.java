@@ -48,18 +48,14 @@ public class TaskManager {
     }
 
     public void deleteTask(Subtask subtask) {
-        if (subtasks.containsKey(subtask.getId())) {
-            subtasks.remove(subtask.getId());
-        }
+        subtasks.remove(subtask.getId());
     }
 
     public void deleteTask(Epic epic) {
         for (Integer subtaskId : epic.getSubtasksIds()) {
             deleteTask(subtasks.get(subtaskId));
         }
-        if (epics.containsKey(epic.getId())) {
-            epics.remove(epic.getId());
-        }
+        epics.remove(epic.getId());
     }
 
     public void addTask(Task task) {
