@@ -42,22 +42,6 @@ public class Task {
         this.status = status;
     }
 
-    /*
-     * Попытка выполнить требования ТЗ:
-     * 1) Пользователь не должен иметь возможности поменять статус эпика самостоятельно.
-     * ... не существует отдельного метода, который занимался бы только обновлением статуса задачи.
-     * Вместо этого статус задачи обновляется вместе с полным обновлением задачи.
-     *
-     * Предлагаемое решение: передача пользователю копии объекта, с последующим обновлением через методы update...
-     * в менеджере.
-     */
-    public Task getCopy() {
-        Task cloneTask = new Task(this.name, this.description);
-        cloneTask.status = this.status;
-        cloneTask.id = this.id;
-        return cloneTask;
-    }
-
     public Status getStatus() {
         return status;
     }

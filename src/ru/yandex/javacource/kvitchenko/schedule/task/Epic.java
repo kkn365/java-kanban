@@ -22,15 +22,6 @@ public class Epic extends Task {
     }
 
     @Override
-    public Epic getCopy() {
-        Epic cloneEpic = new Epic(super.getName(), super.getDescription());
-        cloneEpic.setStatus(super.getStatus());
-        cloneEpic.setId(super.getId());
-        cloneEpic.subtasksIds = new ArrayList<>(this.subtasksIds);
-        return cloneEpic;
-    }
-
-    @Override
     public String toString() {
         return "Epic{" +
                 "id=" + super.getId() +

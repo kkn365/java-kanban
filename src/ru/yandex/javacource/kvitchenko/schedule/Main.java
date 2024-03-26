@@ -23,7 +23,6 @@ public class Main {
         printTasks();
 
         // 3.1. Измените статусы созданных объектов, распечатайте их.
-        changeAndPrintEpicsStatus();
         changeAndPrintTasksStatus();
         changeAndPrintSubtasksStatus();
 
@@ -83,20 +82,6 @@ public class Main {
         System.out.println(manager.getEpics());
         System.out.println("\n----> Списки подзадач:");
         System.out.println(manager.getSubtasks());
-    }
-
-    public static void changeAndPrintEpicsStatus() {
-        System.out.println("\n----> Попытка изменения статусов эпиков на DONE и IN_PROGRESS:");
-        Epic copyOfEpic1 = manager.getEpic(idTestEpic1);
-        Epic copyOfEpic2 = manager.getEpic(idTestEpic2);
-        System.out.println("Текущий статус эпика №1: " + copyOfEpic1.getStatus());
-        System.out.println("Текущий статус эпика №2: " + copyOfEpic2.getStatus());
-        copyOfEpic1.setStatus(Status.DONE);
-        copyOfEpic2.setStatus(Status.IN_PROGRESS);
-        manager.updateEpic(copyOfEpic1);
-        manager.updateEpic(copyOfEpic2);
-        System.out.println("Новый статус эпика №1: " + manager.getEpic(idTestEpic1).getStatus());
-        System.out.println("Новый статус эпика №2: " + manager.getEpic(idTestEpic2).getStatus());
     }
 
     public static void changeAndPrintTasksStatus() {

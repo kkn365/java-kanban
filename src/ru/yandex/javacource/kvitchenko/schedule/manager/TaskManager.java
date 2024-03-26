@@ -13,27 +13,15 @@ public class TaskManager {
 
     // 2a. Получение списка всех задач.
     public ArrayList<Task> getTasks() {
-        ArrayList<Task> tasksCopy = new ArrayList<>();
-        for (Task task : tasks.values()) {
-            tasksCopy.add(task.getCopy());
-        }
-        return tasksCopy;
+        return new ArrayList<>(tasks.values());
     }
 
     public ArrayList<Epic> getEpics() {
-        ArrayList<Epic> epicsCopy = new ArrayList<>();
-        for (Epic epic : epics.values()) {
-            epicsCopy.add(epic.getCopy());
-        }
-        return epicsCopy;
+        return new ArrayList<>(epics.values());
     }
 
     public ArrayList<Subtask> getSubtasks() {
-        ArrayList<Subtask> subtasksCopy = new ArrayList<>();
-        for (Subtask subtask : subtasks.values()) {
-            subtasksCopy.add(subtask.getCopy());
-        }
-        return subtasksCopy;
+        return new ArrayList<>(subtasks.values());
     }
 
     // 2b. Удаление всех задач.
@@ -61,38 +49,35 @@ public class TaskManager {
         if (tasks.get(id) == null) {
             return null;
         }
-        return tasks.get(id).getCopy();
+        return tasks.get(id);
     }
 
     public Epic getEpic(int id) {
         if (epics.get(id) == null) {
             return null;
         }
-        return epics.get(id).getCopy();
+        return epics.get(id);
     }
 
     public Subtask getSubtask(int id) {
         if (subtasks.get(id) == null) {
             return null;
         }
-        return subtasks.get(id).getCopy();
+        return subtasks.get(id);
     }
 
     // 2d. Создание. Сам объект должен передаваться в качестве параметра.
     public int addNewTask(Task task) {
         final int id = ++generatorId;
-        // делаем копию для исключения изменения пользователем статуса по задачам
-        Task newTask = task.getCopy();
-        newTask.setId(id);
-        tasks.put(id, newTask);
+        task.setId(id);
+        tasks.put(id, task);
         return id;
     }
 
     public int addNewEpic(Epic epic) {
         final int id = ++generatorId;
-        Epic newEpic = epic.getCopy();
-        newEpic.setId(id);
-        epics.put(id, newEpic);
+        epic.setId(id);
+        epics.put(id, epic);
         return id;
     }
 
@@ -103,10 +88,9 @@ public class TaskManager {
             return null;
         }
         final int id = ++generatorId;
-        Subtask newSubtask = subtask.getCopy();
-        newSubtask.setId(id);
-        subtasks.put(id, newSubtask);
-        epic.addSubtaskId(newSubtask.getId());
+        subtask.setId(id);
+        subtasks.put(id, subtask);
+        epic.addSubtaskId(subtask.getId());
         updateEpicStatus(epicId);
         return id;
     }
@@ -122,23 +106,27 @@ public class TaskManager {
     }
 
     public void updateEpic(Epic epic) {
-        final int id = epic.getId();
-        final Epic savedEpic = epics.get(id);
+        Epic savedEpic = epics.get(epic.getId());
         if (savedEpic == null) {
             return;
         }
-        epics.put(id, epic);
-        updateEpicStatus(epic.getId());
+        savedEpic.setName(epic.getName());
+        savedEpic.setDescription(epic.getDescription());
     }
 
     public void updateSubtask(Subtask subtask) {
-        final int id = subtask.getId();
-        final Subtask savedSubtask = subtasks.get(id);
+        int id = subtask.getId();
+        int epicId = subtask.getEpicId();
+        Subtask savedSubtask = subtasks.get(id);
         if (savedSubtask == null) {
             return;
         }
+        final Epic epic = epics.get(epicId);
+        if (epic == null) {
+            return;
+        }
         subtasks.put(id, subtask);
-        updateEpicStatus(subtask.getEpicId());
+        updateEpicStatus(epicId);
     }
 
     // 2f. Удаление по идентификатору.
