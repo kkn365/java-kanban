@@ -81,15 +81,18 @@ public class TaskManager {
     // 2d. Создание. Сам объект должен передаваться в качестве параметра.
     public int addNewTask(Task task) {
         final int id = ++generatorId;
-        task.setId(id);
-        tasks.put(id, task);
+        // делаем копию для исключения изменения пользователем статуса по задачам
+        Task newTask = new Task(task.getName(), task.getDescription());
+        newTask.setId(id);
+        tasks.put(id, newTask);
         return id;
     }
 
     public int addNewEpic(Epic epic) {
         final int id = ++generatorId;
-        epic.setId(id);
-        epics.put(id, epic);
+        Epic newEpic = new Epic(epic.getName(), epic.getDescription());
+        newEpic.setId(id);
+        epics.put(id, newEpic);
         return id;
     }
 
@@ -100,9 +103,10 @@ public class TaskManager {
             return null;
         }
         final int id = ++generatorId;
-        subtask.setId(id);
-        subtasks.put(id, subtask);
-        epic.addSubtaskId(subtask.getId());
+        Subtask newSubtask = new Subtask(subtask.getName(), subtask.getDescription(), subtask.getEpicId());
+        newSubtask.setId(id);
+        subtasks.put(id, newSubtask);
+        epic.addSubtaskId(newSubtask.getId());
         updateEpicStatus(epicId);
         return id;
     }
@@ -123,8 +127,8 @@ public class TaskManager {
         if (savedEpic == null) {
             return;
         }
-        updateEpicStatus(epic.getId());
         epics.put(id, epic);
+        updateEpicStatus(epic.getId());
     }
 
     public void updateSubtask(Subtask subtask) {
