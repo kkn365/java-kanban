@@ -82,7 +82,7 @@ public class TaskManager {
     public int addNewTask(Task task) {
         final int id = ++generatorId;
         // делаем копию для исключения изменения пользователем статуса по задачам
-        Task newTask = new Task(task.getName(), task.getDescription());
+        Task newTask = task.getCopy();
         newTask.setId(id);
         tasks.put(id, newTask);
         return id;
@@ -90,7 +90,7 @@ public class TaskManager {
 
     public int addNewEpic(Epic epic) {
         final int id = ++generatorId;
-        Epic newEpic = new Epic(epic.getName(), epic.getDescription());
+        Epic newEpic = epic.getCopy();
         newEpic.setId(id);
         epics.put(id, newEpic);
         return id;
@@ -103,7 +103,7 @@ public class TaskManager {
             return null;
         }
         final int id = ++generatorId;
-        Subtask newSubtask = new Subtask(subtask.getName(), subtask.getDescription(), subtask.getEpicId());
+        Subtask newSubtask = subtask.getCopy();
         newSubtask.setId(id);
         subtasks.put(id, newSubtask);
         epic.addSubtaskId(newSubtask.getId());
