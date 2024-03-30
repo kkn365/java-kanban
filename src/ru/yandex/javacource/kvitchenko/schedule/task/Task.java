@@ -1,5 +1,7 @@
 package ru.yandex.javacource.kvitchenko.schedule.task;
 
+import ru.yandex.javacource.kvitchenko.schedule.enums.Status;
+
 import java.util.Objects;
 
 public class Task {
@@ -49,9 +51,11 @@ public class Task {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Task task = (Task) o;
-        return id == task.id && Objects.equals(name, task.name);
+        return id == task.id;
     }
 
     @Override
