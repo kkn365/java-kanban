@@ -8,27 +8,29 @@ import ru.yandex.javacource.kvitchenko.schedule.util.Managers;
 
 import java.util.HashMap;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class InMemoryTaskManager implements TaskManager {
-    private final HashMap<Integer, Task> tasks = new HashMap<>();
-    private final HashMap<Integer, Subtask> subtasks = new HashMap<>();
-    private final HashMap<Integer, Epic> epics = new HashMap<>();
+    private final Map<Integer, Task> tasks = new HashMap<>();
+    private final Map<Integer, Subtask> subtasks = new HashMap<>();
+    private final Map<Integer, Epic> epics = new HashMap<>();
     private int generatorId = 0;
 
     private HistoryManager historyManager = Managers.getDefaultHistory();
 
     @Override
-    public ArrayList<Task> getTasks() {
+    public List<Task> getTasks() {
         return new ArrayList<>(tasks.values());
     }
 
     @Override
-    public ArrayList<Epic> getEpics() {
+    public List<Epic> getEpics() {
         return new ArrayList<>(epics.values());
     }
 
     @Override
-    public ArrayList<Subtask> getSubtasks() {
+    public List<Subtask> getSubtasks() {
         return new ArrayList<>(subtasks.values());
     }
 
@@ -173,7 +175,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public ArrayList<Subtask> getEpicSubtasks(int epicId) {
+    public List<Subtask> getEpicSubtasks(int epicId) {
         ArrayList<Subtask> tasks = new ArrayList<>();
         Epic epic = epics.get(epicId);
         if (epic == null) {
@@ -183,6 +185,11 @@ public class InMemoryTaskManager implements TaskManager {
             tasks.add(subtasks.get(id));
         }
         return tasks;
+    }
+
+    // Получение истории просмотров
+    public List<Task> getHistory() {
+        return historyManager.getHistory();
     }
 
     // Управление статусами эпиков
@@ -216,11 +223,6 @@ public class InMemoryTaskManager implements TaskManager {
                 epic.setStatus(Status.IN_PROGRESS);
             }
         }
-    }
-
-    // Получение истории просмотров
-    public ArrayList<Task> getHistory() {
-        return historyManager.getHistory();
     }
 
 }

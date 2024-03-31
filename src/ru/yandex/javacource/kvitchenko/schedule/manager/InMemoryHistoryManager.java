@@ -4,11 +4,12 @@ import ru.yandex.javacource.kvitchenko.schedule.interfaces.HistoryManager;
 import ru.yandex.javacource.kvitchenko.schedule.task.Task;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class InMemoryHistoryManager implements HistoryManager {
 
     private static final int MAX_HISTORY_SIZE = 10;
-    private final ArrayList<Task> history = new ArrayList<>();
+    private List<Task> history = new ArrayList<>();
 
     @Override
     public void add(Task task) {
@@ -19,7 +20,7 @@ public class InMemoryHistoryManager implements HistoryManager {
     }
 
     @Override
-    public ArrayList<Task> getHistory() {
-        return new ArrayList<>(history);
+    public List<Task> getHistory() {
+        return history;
     }
 }

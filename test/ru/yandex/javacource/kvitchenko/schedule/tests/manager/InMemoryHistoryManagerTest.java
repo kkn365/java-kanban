@@ -5,7 +5,7 @@ import ru.yandex.javacource.kvitchenko.schedule.interfaces.TaskManager;
 import ru.yandex.javacource.kvitchenko.schedule.task.Task;
 import ru.yandex.javacource.kvitchenko.schedule.util.Managers;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -28,7 +28,7 @@ class InMemoryHistoryManagerTest {
         savedTask.setDescription(description2);
         taskManager.updateTask(savedTask);
 
-        ArrayList<Task> savedHistory = taskManager.getHistory();
+        List<Task> savedHistory = taskManager.getHistory();
 
         assertEquals(name1, savedHistory.getFirst().getName(), "Значение поля name в сохранной задаче изменилось");
         assertEquals(description1, savedHistory.getFirst().getDescription(),

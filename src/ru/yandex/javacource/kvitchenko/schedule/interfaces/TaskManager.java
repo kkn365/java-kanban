@@ -4,16 +4,16 @@ import ru.yandex.javacource.kvitchenko.schedule.task.Epic;
 import ru.yandex.javacource.kvitchenko.schedule.task.Subtask;
 import ru.yandex.javacource.kvitchenko.schedule.task.Task;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface TaskManager {
 
     // Получение списка всех задач.
-    ArrayList<Task> getTasks();
+    List<Task> getTasks();
 
-    ArrayList<Epic> getEpics();
+    List<Epic> getEpics();
 
-    ArrayList<Subtask> getSubtasks();
+    List<Subtask> getSubtasks();
 
     // Удаление всех задач.
     void deleteTasks();
@@ -51,8 +51,8 @@ public interface TaskManager {
     void deleteSubtask(int id);
 
     // Получение списка всех подзадач определённого эпика.
-    ArrayList<Subtask> getEpicSubtasks(int epicId);
+    List<Subtask> getEpicSubtasks(int epicId);
 
-    ArrayList<Task> getHistory();
+    List<Task> getHistory();
 
 }
