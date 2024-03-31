@@ -12,8 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class EpicTest {
 
-    private final Managers manager = new Managers();
-    private final TaskManager taskManager = manager.getDefault();
+    private final TaskManager taskManager = Managers.getDefault();
 
     @BeforeEach
     public void beforeEach() {
@@ -46,6 +45,6 @@ class EpicTest {
         final int epicId = taskManager.addNewEpic(epic);
         final Object savedEpic = taskManager.getEpic(epicId);
 
-        assertThrows(ClassCastException.class, () -> { taskManager.addNewSubtask((Subtask) savedEpic); });
+        assertThrows(ClassCastException.class, () -> taskManager.addNewSubtask((Subtask) savedEpic));
     }
 }

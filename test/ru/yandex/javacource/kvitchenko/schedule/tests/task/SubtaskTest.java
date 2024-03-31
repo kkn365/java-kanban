@@ -1,5 +1,6 @@
 package ru.yandex.javacource.kvitchenko.schedule.tests.task;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.yandex.javacource.kvitchenko.schedule.util.Managers;
 import ru.yandex.javacource.kvitchenko.schedule.interfaces.TaskManager;
@@ -11,8 +12,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class SubtaskTest {
 
-    private final Managers manager = new Managers();
-    private final TaskManager taskManager = manager.getDefault();
+    private final TaskManager taskManager = Managers.getDefault();
+
+    @BeforeEach
+    public void beforeEach() {
+        taskManager.deleteEpics();
+    }
 
     // проверьте, что наследники класса Task равны друг другу, если равен их id;
     @Test
@@ -29,8 +34,8 @@ class SubtaskTest {
         final int subtask1Id = taskManager.addNewSubtask(subtask1);
         final int subtask2Id = taskManager.addNewSubtask(subtask2);
 
-        Task savedSubtask1 = taskManager.getSubtask(subtask1Id);
-        Task savedSubtask2 = taskManager.getSubtask(subtask2Id);
+        Subtask savedSubtask1 = taskManager.getSubtask(subtask1Id);
+        Subtask savedSubtask2 = taskManager.getSubtask(subtask2Id);
         savedSubtask2.setId(subtask1Id);
 
         assertNotEquals(savedSubtask1.toString(), savedSubtask2.toString(), "Все поля задач совпадают");
@@ -38,5 +43,4 @@ class SubtaskTest {
         assertTrue(savedSubtask1.equals(savedSubtask2));
     }
 
-    // проверьте, что объект Subtask нельзя сделать своим же эпиком;
 }

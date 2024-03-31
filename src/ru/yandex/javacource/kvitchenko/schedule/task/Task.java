@@ -48,6 +48,12 @@ public class Task {
         return status;
     }
 
+    public Task copy() {
+        Task copyTask = new Task(this.name, this.description);
+        copyTask.status = this.status;
+        copyTask.id = this.id;
+        return copyTask;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
