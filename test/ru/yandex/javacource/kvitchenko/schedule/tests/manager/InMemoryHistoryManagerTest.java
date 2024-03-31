@@ -30,8 +30,8 @@ class InMemoryHistoryManagerTest {
 
         ArrayList<Task> savedHistory = taskManager.getHistory();
 
-        assertEquals(name1, savedHistory.get(0).getName(), "Значение поля name в сохранной задаче изменилось");
-        assertEquals(description1, savedHistory.get(0).getDescription(),
+        assertEquals(name1, savedHistory.getFirst().getName(), "Значение поля name в сохранной задаче изменилось");
+        assertEquals(description1, savedHistory.getFirst().getDescription(),
                 "Значение поля description в сохранной задаче изменилось");
     }
 

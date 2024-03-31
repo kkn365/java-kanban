@@ -6,7 +6,6 @@ import ru.yandex.javacource.kvitchenko.schedule.util.Managers;
 import ru.yandex.javacource.kvitchenko.schedule.interfaces.TaskManager;
 import ru.yandex.javacource.kvitchenko.schedule.task.Epic;
 import ru.yandex.javacource.kvitchenko.schedule.task.Subtask;
-import ru.yandex.javacource.kvitchenko.schedule.task.Task;
 
 import static org.junit.jupiter.api.Assertions.*;
 
