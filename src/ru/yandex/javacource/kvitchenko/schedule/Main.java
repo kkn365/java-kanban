@@ -23,8 +23,16 @@ public class Main {
             taskManager.getSubtask(subtask1Id);
             taskManager.getSubtask(subtask2Id);
         }
-
         printAllTasks(taskManager);
+
+        System.out.println(System.lineSeparator());
+        taskManager.deleteSubtask(subtask2Id);
+        printAllTasks(taskManager);
+
+        System.out.println(System.lineSeparator());
+        taskManager.deleteEpics();
+        printAllTasks(taskManager);
+
     }
 
     private static void printAllTasks(TaskManager manager) {

@@ -9,6 +9,7 @@ import java.util.List;
 
 public class InMemoryHistoryManager implements HistoryManager {
 
+    private Node<Task> head; // указатель на первый элемент списка
     private Node<Task> tail; // указатель на последний элемент списка
     private int size = 0;
 
@@ -16,57 +17,53 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     @Override
     public void add(Task task) {
-
         final int taskId = task.getId();
-
-        final Node<Task> newNode = new Node<>(task.copy(), tail, null);
-
-        if (this.tail != null) {
-            // добавить ссылку на следующий элемент
-            this.tail.setNext(newNode);
-        }
-
+        linkLast(task);
         // удалить элемент из списка, если он уже есть в истории обращений
         if (history.containsKey(taskId)) {
             remove(taskId);
         }
-
-        this.tail = newNode;
-        history.put(taskId, newNode);
+        history.put(taskId, tail);
         this.size++;
-
     }
 
     @Override
     public void remove(int id) {
-        // если элемент единственный в списке
-        if (size() == 1) {
-            history.remove(id);
-            this.tail = null;
-            this.size--;
+        final Node node = history.remove(id);
+        if (node == null) {
             return;
         }
+        removeNode(node);
+        this.size--;
+    }
 
-        final Node<Task> curNode = history.get(id);
-        final Node<Task> tmpPrev = curNode.getPrev();
-        final Node<Task> tmpNext = curNode.getNext();
+    private void removeNode(Node node) {
 
-        // Node в середине списка
-        if (tmpPrev != null && tmpNext != null) {
-            tmpNext.setPrev(tmpPrev);
-            tmpPrev.setNext(tmpNext);
-            history.remove(id);
-            this.size--;
-            return;
+        if (node.getPrev() != null) {
+            node.getPrev().setNext(node.getNext());
+            if (node.getNext() == null) {
+                tail = node.getPrev();
+            } else {
+                node.getNext().setPrev(node.getPrev());
+            }
+        } else {
+            head = node.getNext();
+            if (head == null) {
+                tail = null;
+            } else {
+                head.setPrev(null);
+            }
         }
+    }
 
-        // Node в конце списка
-        if (tmpNext == null) {
-            tmpPrev.setNext(null);
-            history.remove(id);
-            this.size--;
+    public void linkLast(Task task) {
+        final Node<Task> newNode = new Node<>(task.copy(), tail, null);
+        if (head == null) {
+            head = newNode;
+        } else {
+            tail.setNext(newNode);
         }
-
+        tail = newNode;
     }
 
     public int size() {
@@ -77,14 +74,17 @@ public class InMemoryHistoryManager implements HistoryManager {
     public List<Task> getHistory() {
 
         List<Task> historyList = new ArrayList<>();
-        Node<Task> curNode = tail;
 
-        while (curNode.getPrev() != null) {
+        if (head != null) {
+            Node<Task> curNode = tail;
+
+            while (curNode.getPrev() != null) {
+                historyList.add(curNode.getData());
+                curNode = curNode.getPrev();
+            }
+
             historyList.add(curNode.getData());
-            curNode = curNode.getPrev();
         }
-
-        historyList.add(curNode.getData());
         return historyList;
 
     }
