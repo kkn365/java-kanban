@@ -19,7 +19,7 @@ public class Main {
         final int subtask2Id = taskManager.addNewSubtask(subtask2);
 
         taskManager.getEpic(epicId);
-        for (int i = 0; i < 10; i ++) {
+        for (int i = 0; i < 10; i++) {
             taskManager.getSubtask(subtask1Id);
             taskManager.getSubtask(subtask2Id);
         }
