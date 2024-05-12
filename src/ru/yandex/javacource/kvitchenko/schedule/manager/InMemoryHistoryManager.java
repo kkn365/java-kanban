@@ -19,6 +19,10 @@ public class InMemoryHistoryManager implements HistoryManager {
     public void add(Task task) {
         final int taskId = task.getId();
         linkLast(task);
+        // удалить элемент из списка, если он уже есть в истории обращений
+        // if (history.containsKey(taskId)) {
+        //    remove(taskId);
+        // }
         history.put(taskId, tail);
         this.size++;
     }

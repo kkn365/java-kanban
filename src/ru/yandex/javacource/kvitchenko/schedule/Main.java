@@ -1,15 +1,24 @@
 package ru.yandex.javacource.kvitchenko.schedule;
 
 import ru.yandex.javacource.kvitchenko.schedule.interfaces.TaskManager;
+import ru.yandex.javacource.kvitchenko.schedule.manager.FileBackedTaskManager;
 import ru.yandex.javacource.kvitchenko.schedule.task.Epic;
 import ru.yandex.javacource.kvitchenko.schedule.task.Subtask;
 import ru.yandex.javacource.kvitchenko.schedule.task.Task;
 import ru.yandex.javacource.kvitchenko.schedule.util.Managers;
 
+import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 public class Main {
 
     public static void main(String[] args) {
-        TaskManager taskManager = Managers.getDefault();
+        Path path = Paths.get(System.getProperty("java.io.tmpdir") + File.separator + "java-kanban.csv");
+        FileBackedTaskManager taskManager = FileBackedTaskManager.loadFromFile(path.toFile());
+        printAllTasks(taskManager);
+
+        //TaskManager taskManager = Managers.getDefault();
         Epic epic = new Epic("Test epic with two subtasks","Test epic description");
         final int epicId = taskManager.addNewEpic(epic);
 
