@@ -54,6 +54,7 @@ public class Task {
         copyTask.id = this.id;
         return copyTask;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -78,4 +79,5 @@ public class Task {
                 ", status=" + status +
                 '}';
     }
+
 }

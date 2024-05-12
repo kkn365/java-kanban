@@ -19,12 +19,20 @@ public class Main {
         final int subtask2Id = taskManager.addNewSubtask(subtask2);
 
         taskManager.getEpic(epicId);
-        for (int i = 0; i < 5; i ++) {
+        for (int i = 0; i < 10; i++) {
             taskManager.getSubtask(subtask1Id);
             taskManager.getSubtask(subtask2Id);
         }
-
         printAllTasks(taskManager);
+
+        System.out.println(System.lineSeparator());
+        taskManager.deleteSubtask(subtask2Id);
+        printAllTasks(taskManager);
+
+        System.out.println(System.lineSeparator());
+        taskManager.deleteEpics();
+        printAllTasks(taskManager);
+
     }
 
     private static void printAllTasks(TaskManager manager) {
