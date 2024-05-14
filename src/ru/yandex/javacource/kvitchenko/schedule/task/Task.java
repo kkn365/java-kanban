@@ -1,6 +1,7 @@
 package ru.yandex.javacource.kvitchenko.schedule.task;
 
 import ru.yandex.javacource.kvitchenko.schedule.enums.Status;
+import ru.yandex.javacource.kvitchenko.schedule.enums.TaskType;
 
 import java.util.Objects;
 
@@ -14,6 +15,17 @@ public class Task {
         this.name = name;
         this.description = description;
         status = Status.NEW;
+    }
+
+    public Task(int id, String name, String description, Status status) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.status = status;
+    }
+
+    public TaskType getType() {
+        return TaskType.TASK;
     }
 
     public void setId(int id) {

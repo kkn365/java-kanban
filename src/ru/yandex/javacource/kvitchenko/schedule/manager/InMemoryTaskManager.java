@@ -12,12 +12,12 @@ import java.util.List;
 import java.util.Map;
 
 public class InMemoryTaskManager implements TaskManager {
-    private final Map<Integer, Task> tasks = new HashMap<>();
-    private final Map<Integer, Subtask> subtasks = new HashMap<>();
-    private final Map<Integer, Epic> epics = new HashMap<>();
-    private int generatorId = 0;
+    protected final Map<Integer, Task> tasks = new HashMap<>();
+    protected final Map<Integer, Subtask> subtasks = new HashMap<>();
+    protected final Map<Integer, Epic> epics = new HashMap<>();
+    protected int generatorId = 0;
 
-    private final HistoryManager historyManager = Managers.getDefaultHistory();
+    protected final HistoryManager historyManager = Managers.getDefaultHistory();
 
     @Override
     public List<Task> getTasks() {
@@ -94,6 +94,26 @@ public class InMemoryTaskManager implements TaskManager {
         }
         historyManager.add(subtask);
         return subtask;
+    }
+
+    @Override
+    public void addAnyTask(Task task) {
+        switch (task.getType()) {
+            case TASK:
+                tasks.put(task.getId(), task);
+                break;
+            case SUBTASK:
+                subtasks.put(task.getId(), (Subtask) task);
+                break;
+            case EPIC:
+                epics.put(task.getId(), (Epic) task);
+                for (Subtask subtask : getEpicSubtasks(task.getId())) {
+                    ((Epic) task).addSubtaskId(subtask.getId());
+                }
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
@@ -210,7 +230,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     // Управление статусами эпиков
-    private void updateEpicStatus(int epicId) {
+    protected void updateEpicStatus(int epicId) {
         Epic epic = epics.get(epicId);
         if (epic == null) {
             return;

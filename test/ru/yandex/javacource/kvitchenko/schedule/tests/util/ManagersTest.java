@@ -11,22 +11,16 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ManagersTest {
 
-    // убедитесь, что утилитарный класс всегда возвращает проинициализированные и готовые к работе экземпляры менеджеров;
     @Test
     void getDefaultReturnsInitialisedInstanceOfInMemoryTaskManager() {
         TaskManager taskManager = Managers.getDefault();
-
-        assertTrue(taskManager instanceof InMemoryTaskManager);
-        assertSame(InMemoryTaskManager.class, taskManager.getClass(), "Классы объектов не совпадают.");
-
+        assertInstanceOf(InMemoryTaskManager.class, taskManager);
     }
 
     @Test
     void getDefaultHistoryReturnsInitialisedInstanceOfInMemoryHistoryManager() {
         HistoryManager historyManager = Managers.getDefaultHistory();
-
-        assertTrue(historyManager instanceof InMemoryHistoryManager);
-        assertSame(InMemoryHistoryManager.class, historyManager.getClass(), "Классы объектов не совпадают.");
+        assertInstanceOf(InMemoryHistoryManager.class, historyManager);
     }
 
 

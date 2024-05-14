@@ -39,7 +39,7 @@ class SubtaskTest {
 
         assertNotEquals(savedSubtask1.toString(), savedSubtask2.toString(), "Все поля задач совпадают");
         assertEquals(savedSubtask1.getId(), savedSubtask2.getId(), "Идентификаторы задач не совпадают.");
-        assertTrue(savedSubtask1.equals(savedSubtask2));
+        assertEquals(savedSubtask1, savedSubtask2);
     }
 
 }
