@@ -2,7 +2,7 @@ package ru.yandex.javacource.kvitchenko.schedule.manager;
 
 public class Node<T> {
 
-    private T data;
+    private final T data;
     private Node<T> next;
     private Node<T> prev;
 
@@ -14,10 +14,6 @@ public class Node<T> {
 
     public T getData() {
         return data;
-    }
-
-    public void setData(T data) {
-        this.data = data;
     }
 
     public Node<T> getNext() {

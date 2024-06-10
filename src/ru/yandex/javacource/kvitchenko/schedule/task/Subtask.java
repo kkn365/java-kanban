@@ -1,5 +1,8 @@
 package ru.yandex.javacource.kvitchenko.schedule.task;
 
+import ru.yandex.javacource.kvitchenko.schedule.enums.Status;
+import ru.yandex.javacource.kvitchenko.schedule.enums.TaskType;
+
 public class Subtask extends Task {
     private int epicId;
 
@@ -8,8 +11,14 @@ public class Subtask extends Task {
         this.epicId = epicId;
     }
 
-    public void setEpicId(int epicId) {
+    public Subtask(int id, String name, String description, Status status, int epicId) {
+        super(id, name, description, status);
         this.epicId = epicId;
+    }
+
+    @Override
+    public TaskType getType() {
+        return TaskType.SUBTASK;
     }
 
     @Override

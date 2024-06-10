@@ -29,6 +29,8 @@ public interface TaskManager {
 
     Subtask getSubtask(int id);
 
+    void addAnyTask(Task task);
+
     // Создание. Сам объект должен передаваться в качестве параметра.
     int addNewTask(Task task);
 

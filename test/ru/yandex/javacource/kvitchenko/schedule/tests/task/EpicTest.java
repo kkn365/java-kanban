@@ -34,7 +34,7 @@ class EpicTest {
 
         assertNotEquals(savedEpic1.toString(), savedEpic2.toString(), "Все поля задач совпадают");
         assertEquals(savedEpic1.getId(), savedEpic2.getId(), "Идентификаторы задач не совпадают.");
-        assertTrue(savedEpic1.equals(savedEpic2));
+        assertEquals(savedEpic1, savedEpic2);
     }
 
     // проверьте, что объект Epic нельзя добавить в самого себя в виде подзадачи;

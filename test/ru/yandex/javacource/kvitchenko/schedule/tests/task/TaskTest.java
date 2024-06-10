@@ -18,6 +18,6 @@ class TaskTest {
 
         assertNotEquals(task1.toString(), task2.toString(), "Все поля задач совпадают");
         assertEquals(task1.getId(), task2.getId(), "Идентификаторы задач не совпадают.");
-        assertTrue(task1.equals(task2));
+        assertEquals(task1, task2);
     }
 }
