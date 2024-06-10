@@ -2,27 +2,27 @@ package ru.yandex.javacource.kvitchenko.schedule.tests.task;
 
 import org.junit.jupiter.api.Test;
 import ru.yandex.javacource.kvitchenko.schedule.enums.Status;
-import ru.yandex.javacource.kvitchenko.schedule.util.Managers;
 import ru.yandex.javacource.kvitchenko.schedule.interfaces.TaskManager;
 import ru.yandex.javacource.kvitchenko.schedule.task.Epic;
 import ru.yandex.javacource.kvitchenko.schedule.task.Subtask;
+import ru.yandex.javacource.kvitchenko.schedule.util.Managers;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class EpicTest {
 
     private final TaskManager taskManager = Managers.getDefault();
 
     /*
-    * 1. Для расчёта статуса Epic. Граничные условия:
-    *    a. Все подзадачи со статусом NEW.
-    *    b. Все подзадачи со статусом DONE.
-    *    c. Подзадачи со статусами NEW и DONE.
-    *    d. Подзадачи со статусом IN_PROGRESS.
-    */
+     * 1. Для расчёта статуса Epic. Граничные условия:
+     *    a. Все подзадачи со статусом NEW.
+     *    b. Все подзадачи со статусом DONE.
+     *    c. Подзадачи со статусами NEW и DONE.
+     *    d. Подзадачи со статусом IN_PROGRESS.
+     */
     @Test
     void calculateEpicStatusBySubtaskStatuses() {
 
@@ -33,7 +33,7 @@ class EpicTest {
 
         Duration standartDuration = Duration.ofMinutes(15);
 
-        Epic epic = new Epic("Test epic with four subtasks","Test epic description");
+        Epic epic = new Epic("Test epic with four subtasks", "Test epic description");
         final int epicId = taskManager.addNewEpic(epic);
 
         Subtask subtask1 = new Subtask("Test subtask 1", "Subtask 1 description", epicId);

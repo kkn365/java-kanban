@@ -2,7 +2,6 @@ package ru.yandex.javacource.kvitchenko.schedule.tests.manager;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import ru.yandex.javacource.kvitchenko.schedule.exceptions.ManagerSaveException;
 import ru.yandex.javacource.kvitchenko.schedule.manager.FileBackedTaskManager;
 
@@ -45,7 +44,7 @@ public class FileBackedTaskManagerTest extends TaskManagerTest {
 
     @Test
     void testException() {
-        assertThrows(ManagerSaveException.class,() -> {
+        assertThrows(ManagerSaveException.class, () -> {
             File file = new File("/test.csv");
             FileBackedTaskManager.loadFromFile(file);
         }, "Can't read from file");

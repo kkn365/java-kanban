@@ -13,14 +13,14 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class InMemoryHistoryManagerTest  {
+class InMemoryHistoryManagerTest {
 
     /*
-    * Для HistoryManager — тесты для всех методов интерфейса. Граничные условия:
-    *    a. Пустая история задач.
-    *    b. Дублирование.
-    *    c. Удаление из истории: начало, середина, конец.
-    */
+     * Для HistoryManager — тесты для всех методов интерфейса. Граничные условия:
+     *    a. Пустая история задач.
+     *    b. Дублирование.
+     *    c. Удаление из истории: начало, середина, конец.
+     */
 
     final HistoryManager historyManager = Managers.getDefaultHistory();
 
@@ -32,7 +32,7 @@ class InMemoryHistoryManagerTest  {
         task.setDuration(Duration.ofMinutes(15));
         historyManager.add(task);
 
-        assertEquals(task,historyManager.getHistory().toArray()[0],"Tasks not equals.");
+        assertEquals(task, historyManager.getHistory().toArray()[0], "Tasks not equals.");
     }
 
     // void remove(int id);
@@ -59,17 +59,17 @@ class InMemoryHistoryManagerTest  {
         historyManager.remove(task1.getId());
         assertNotEquals(task1, historyManager.getHistory().stream().filter(
                 task -> task.getId().equals(task1.getId())
-        ).collect(Collectors.toList()),"Task 1 does not removed from history.");
+        ).collect(Collectors.toList()), "Task 1 does not removed from history.");
 
         historyManager.remove(task3.getId());
         assertNotEquals(task3, historyManager.getHistory().stream().filter(
                 task -> task.getId().equals(task3.getId())
-        ).collect(Collectors.toList()),"Task 3 does not removed from history.");
+        ).collect(Collectors.toList()), "Task 3 does not removed from history.");
 
         historyManager.remove(task2.getId());
         assertNotEquals(task2, historyManager.getHistory().stream().filter(
                 task -> task.getId().equals(task2.getId())
-        ).collect(Collectors.toList()),"Task 2 does not removed from history.");
+        ).collect(Collectors.toList()), "Task 2 does not removed from history.");
 
     }
 
@@ -105,7 +105,7 @@ class InMemoryHistoryManagerTest  {
         testTaskList.add(task2);
         testTaskList.add(task1);
 
-        assertArrayEquals(testTaskList.toArray(),historyManager.getHistory().toArray(),"Arrays not equals.");
+        assertArrayEquals(testTaskList.toArray(), historyManager.getHistory().toArray(), "Arrays not equals.");
     }
 
 }

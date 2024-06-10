@@ -64,7 +64,7 @@ class InMemoryTaskManagerTest extends TaskManagerTest {
         testTasksList.add(task1);
         testTasksList.add(task3);
 
-        assertArrayEquals(testTasksList.toArray(),super.taskManager.getPrioritizedTasks().toArray(),
+        assertArrayEquals(testTasksList.toArray(), super.taskManager.getPrioritizedTasks().toArray(),
                 "Arrays not equals");
     }
 
