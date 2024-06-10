@@ -15,6 +15,8 @@ public interface TaskManager {
 
     List<Subtask> getSubtasks();
 
+    List<Task> getPrioritizedTasks();
+
     // Удаление всех задач.
     void deleteTasks();
 
@@ -28,8 +30,6 @@ public interface TaskManager {
     Epic getEpic(int id);
 
     Subtask getSubtask(int id);
-
-    void addAnyTask(Task task);
 
     // Создание. Сам объект должен передаваться в качестве параметра.
     int addNewTask(Task task);

@@ -10,13 +10,14 @@ import ru.yandex.javacource.kvitchenko.schedule.task.Task;
 import java.io.*;
 
 import java.nio.file.Files;
+import java.time.*;
 import java.util.Map;
 
 public class FileBackedTaskManager extends InMemoryTaskManager {
 
-
-    private static final String HEADER = "id,type,name,status,description,epic";
+    private static final String HEADER = "id,type,name,status,description,start,duration,epic";
     private final File file;
+    private static final ZoneId zoneId = ZoneId.systemDefault();
 
     public FileBackedTaskManager(File file) {
         this.file = file;
@@ -84,21 +85,67 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         return taskManager;
     }
 
+    private void addAnyTask(Task task) {
+        switch (task.getType()) {
+            case TASK:
+                tasks.put(task.getId(), task);
+                break;
+            case SUBTASK:
+                subtasks.put(task.getId(), (Subtask) task);
+                break;
+            case EPIC:
+                epics.put(task.getId(), (Epic) task);
+                for (Subtask subtask : getEpicSubtasks(task.getId())) {
+                    ((Epic) task).addSubtaskId(subtask.getId());
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
     private String toString(Task task) {
-        return task.getId() + "," + task.getType() + "," + task.getName() + "," + task.getStatus() + ","
+        // id,type,name,status,description,start,duration,epic
+        String startTime = "";
+        String duration = "";
+        if (task.getStartTime() != null && task.getDuration() != null) {
+            startTime = Long.toString(task.getStartTime().atZone(zoneId).toEpochSecond());
+            duration = Long.toString(task.getDuration().toSeconds());
+        }
+        return task.getId() + ","
+                + task.getType() + ","
+                + task.getName() + ","
+                + task.getStatus() + ","
                 + task.getDescription() + ","
+                + startTime + ","
+                + duration + ","
                 + (task.getType().equals(TaskType.SUBTASK) ? ((Subtask) task).getEpicId() : "");
     }
 
     static Task fromString(String value) {
 
         String[] split = value.split(",");
+        // id,type,name,status,description,start,duration,epic
+        int id              = Integer.parseInt(split[0]);
+        TaskType type       = TaskType.valueOf(split[1]);
+        String name         = split[2];
+        Status status       = Status.valueOf(split[3]);
+        String description  = split[4];
+        LocalDateTime start = null;
+        Duration duration   = null;
 
-        return switch (TaskType.valueOf(split[1])) {
-            case TASK -> new Task(Integer.parseInt(split[0]), split[1], split[4], Status.valueOf(split[3]));
-            case SUBTASK -> new Subtask(Integer.parseInt(split[0]), split[2], split[4],
-                    Status.valueOf(split[3]), Integer.parseInt(split[5]));
-            case EPIC -> new Epic(Integer.parseInt(split[0]), split[1], split[4], Status.valueOf(split[3]));
+        if (split.length >= 6 && !split[5].isEmpty()) {
+            start = ZonedDateTime.ofInstant(Instant.ofEpochSecond(Long.parseLong(split[5])), zoneId).toLocalDateTime();
+        }
+        if (split.length >= 7 && !split[6].isEmpty()) {
+            duration = Duration.ofSeconds(Long.parseLong(split[6]));
+        }
+
+        // id,name,description,status,startTime,duration
+        return switch (type) {
+            case TASK -> new Task(id,name,description,status,start,duration);
+            case SUBTASK -> new Subtask(id,name,description,status,start,duration,Integer.parseInt(split[7]));
+            case EPIC -> new Epic(id,name,description,status,start,duration);
         };
 
     }
