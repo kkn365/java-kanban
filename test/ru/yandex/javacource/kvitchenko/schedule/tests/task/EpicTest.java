@@ -27,13 +27,15 @@ class EpicTest {
     void calculateEpicStatusBySubtaskStatuses() {
 
         LocalDateTime subtask1StartTime = LocalDateTime.now();
-        LocalDateTime subtask2StartTime = subtask1StartTime.plusMinutes(15);
-        LocalDateTime subtask3StartTime = subtask1StartTime.plusMinutes(30);
-        LocalDateTime subtask4StartTime = subtask1StartTime.plusMinutes(45);
+        LocalDateTime subtask2StartTime = subtask1StartTime.plusMinutes(20);
+        LocalDateTime subtask3StartTime = subtask1StartTime.plusMinutes(40);
+        LocalDateTime subtask4StartTime = subtask1StartTime.plusMinutes(60);
 
         Duration standartDuration = Duration.ofMinutes(15);
 
         Epic epic = new Epic("Test epic with four subtasks", "Test epic description");
+        epic.setStartTime(subtask1StartTime.minusMinutes(10));
+        epic.setDuration(standartDuration);
         final int epicId = taskManager.addNewEpic(epic);
 
         Subtask subtask1 = new Subtask("Test subtask 1", "Subtask 1 description", epicId);

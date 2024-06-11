@@ -1,6 +1,5 @@
 package ru.yandex.javacource.kvitchenko.schedule.tests.manager;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.yandex.javacource.kvitchenko.schedule.exceptions.ManagerSaveException;
 import ru.yandex.javacource.kvitchenko.schedule.manager.FileBackedTaskManager;
@@ -10,13 +9,6 @@ import java.io.File;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class FileBackedTaskManagerTest extends TaskManagerTest {
-
-    @BeforeEach
-    void beforeEach() {
-        super.taskManager.deleteTasks();
-        super.taskManager.deleteSubtasks();
-        super.taskManager.deleteEpics();
-    }
 
     @Test
     void TaskManagerTests() {

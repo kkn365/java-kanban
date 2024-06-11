@@ -16,8 +16,8 @@ import java.util.Map;
 public class FileBackedTaskManager extends InMemoryTaskManager {
 
     private static final String HEADER = "id,type,name,status,description,start,duration,epic";
-    private final File file;
     private static final ZoneId zoneId = ZoneId.systemDefault();
+    private final File file;
 
     public FileBackedTaskManager(File file) {
         this.file = file;
