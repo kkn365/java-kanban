@@ -8,12 +8,13 @@ import java.util.List;
 
 public interface TaskManager {
 
-    // Получение списка всех задач.
     List<Task> getTasks();
 
     List<Epic> getEpics();
 
     List<Subtask> getSubtasks();
+
+    List<Task> getPrioritizedTasks();
 
     // Удаление всех задач.
     void deleteTasks();
@@ -28,8 +29,6 @@ public interface TaskManager {
     Epic getEpic(int id);
 
     Subtask getSubtask(int id);
-
-    void addAnyTask(Task task);
 
     // Создание. Сам объект должен передаваться в качестве параметра.
     int addNewTask(Task task);

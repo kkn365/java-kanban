@@ -7,7 +7,7 @@ import ru.yandex.javacource.kvitchenko.schedule.manager.InMemoryHistoryManager;
 import ru.yandex.javacource.kvitchenko.schedule.manager.InMemoryTaskManager;
 import ru.yandex.javacource.kvitchenko.schedule.util.Managers;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 class ManagersTest {
 
@@ -22,6 +22,5 @@ class ManagersTest {
         HistoryManager historyManager = Managers.getDefaultHistory();
         assertInstanceOf(InMemoryHistoryManager.class, historyManager);
     }
-
 
 }

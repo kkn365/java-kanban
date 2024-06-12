@@ -3,6 +3,9 @@ package ru.yandex.javacource.kvitchenko.schedule.task;
 import ru.yandex.javacource.kvitchenko.schedule.enums.Status;
 import ru.yandex.javacource.kvitchenko.schedule.enums.TaskType;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class Task {
@@ -10,6 +13,8 @@ public class Task {
     private String name;
     private String description;
     private Status status;
+    private LocalDateTime startTime;
+    private Duration duration;
 
     public Task(String name, String description) {
         this.name = name;
@@ -17,11 +22,19 @@ public class Task {
         status = Status.NEW;
     }
 
-    public Task(int id, String name, String description, Status status) {
+    public Task(int id,
+                String name,
+                String description,
+                Status status,
+                LocalDateTime startTime,
+                Duration duration
+    ) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.status = status;
+        this.startTime = startTime;
+        this.duration = duration;
     }
 
     public TaskType getType() {
@@ -60,11 +73,35 @@ public class Task {
         return status;
     }
 
+    public Duration getDuration() {
+        return duration;
+    }
+
+    public void setDuration(Duration duration) {
+        this.duration = duration;
+    }
+
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public LocalDateTime getEndTime() {
+        return startTime.plus(duration);
+    }
+
     public Task copy() {
-        Task copyTask = new Task(this.name, this.description);
-        copyTask.status = this.status;
-        copyTask.id = this.id;
-        return copyTask;
+        return new Task(
+                this.id,
+                this.name,
+                this.description,
+                this.status,
+                this.startTime,
+                this.duration
+        );
     }
 
     @Override
@@ -88,7 +125,9 @@ public class Task {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", status=" + status +
+                ", status=" + status + '\'' +
+                ", start=[" + startTime.format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss")) + '\'' +
+                "], duration = [" + duration.toMinutes() + "]" +
                 '}';
     }
 

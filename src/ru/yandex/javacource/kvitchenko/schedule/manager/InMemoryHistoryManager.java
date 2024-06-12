@@ -33,7 +33,6 @@ public class InMemoryHistoryManager implements HistoryManager {
     }
 
     private void removeNode(Node<Task> node) {
-
         if (node.getPrev() != null) {
             node.getPrev().setNext(node.getNext());
             if (node.getNext() == null) {
@@ -63,20 +62,16 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     @Override
     public List<Task> getHistory() {
-
         List<Task> historyList = new ArrayList<>();
-
         if (head != null) {
             Node<Task> curNode = tail;
-
             while (curNode.getPrev() != null) {
                 historyList.add(curNode.getData());
                 curNode = curNode.getPrev();
             }
-
             historyList.add(curNode.getData());
         }
         return historyList;
-
     }
+
 }

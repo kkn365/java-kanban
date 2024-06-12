@@ -3,6 +3,10 @@ package ru.yandex.javacource.kvitchenko.schedule.task;
 import ru.yandex.javacource.kvitchenko.schedule.enums.Status;
 import ru.yandex.javacource.kvitchenko.schedule.enums.TaskType;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Subtask extends Task {
     private int epicId;
 
@@ -11,8 +15,15 @@ public class Subtask extends Task {
         this.epicId = epicId;
     }
 
-    public Subtask(int id, String name, String description, Status status, int epicId) {
-        super(id, name, description, status);
+    public Subtask(int id,
+                   String name,
+                   String description,
+                   Status status,
+                   LocalDateTime startTime,
+                   Duration duration,
+                   int epicId
+    ) {
+        super(id, name, description, status, startTime, duration);
         this.epicId = epicId;
     }
 
@@ -23,11 +34,15 @@ public class Subtask extends Task {
 
     @Override
     public Subtask copy() {
-        Subtask copySubtask = new Subtask(this.getName(), this.getDescription(), this.epicId);
-        copySubtask.epicId = this.epicId;
-        copySubtask.setStatus(this.getStatus());
-        copySubtask.setId(this.getId());
-        return copySubtask;
+        return new Subtask(
+                this.getId(),
+                this.getName(),
+                this.getDescription(),
+                this.getStatus(),
+                this.getStartTime(),
+                this.getDuration(),
+                this.getEpicId()
+        );
     }
 
     public int getEpicId() {
@@ -42,6 +57,8 @@ public class Subtask extends Task {
                 ", name='" + super.getName() + '\'' +
                 ", description='" + super.getDescription() + '\'' +
                 ", status=" + super.getStatus() +
+                ", start=[" + super.getStartTime().format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss")) + '\'' +
+                "], duration = [" + super.getDuration().toMinutes() + "]" +
                 '}';
     }
 
