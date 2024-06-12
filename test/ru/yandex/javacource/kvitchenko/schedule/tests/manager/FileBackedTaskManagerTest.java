@@ -8,7 +8,7 @@ import java.io.File;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class FileBackedTaskManagerTest extends TaskManagerTest {
+public class FileBackedTaskManagerTest extends TaskManagerTest<FileBackedTaskManager> {
 
     @Test
     void TaskManagerTests() {

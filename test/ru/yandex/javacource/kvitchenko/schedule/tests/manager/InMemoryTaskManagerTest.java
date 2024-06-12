@@ -2,6 +2,7 @@ package ru.yandex.javacource.kvitchenko.schedule.tests.manager;
 
 import org.junit.jupiter.api.Test;
 import ru.yandex.javacource.kvitchenko.schedule.exceptions.TaskValidationException;
+import ru.yandex.javacource.kvitchenko.schedule.manager.InMemoryTaskManager;
 import ru.yandex.javacource.kvitchenko.schedule.task.Task;
 
 import java.time.Duration;
@@ -9,7 +10,7 @@ import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class InMemoryTaskManagerTest extends TaskManagerTest {
+class InMemoryTaskManagerTest extends TaskManagerTest<InMemoryTaskManager> {
 
     @Test
     void TaskManagerTests() {

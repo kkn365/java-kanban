@@ -119,13 +119,9 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public int addNewEpic(Epic epic) throws TaskValidationException {
-//        if (epic.getStartTime() != null && hasIntersections(epic)) {
-//            throw new TaskValidationException("Время эпика пересекается, провете время: НАЧАЛО, КОНЕЦ");
-//        }
         final int id = ++generatorId;
         epic.setId(id);
         epics.put(id, epic);
-        //prioritizedTasks.add(epic);
         return id;
     }
 
