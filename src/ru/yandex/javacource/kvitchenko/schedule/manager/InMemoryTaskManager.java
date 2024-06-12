@@ -11,6 +11,7 @@ import ru.yandex.javacource.kvitchenko.schedule.util.Managers;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -20,6 +21,7 @@ public class InMemoryTaskManager implements TaskManager {
     protected final Map<Integer, Epic> epics = new HashMap<>();
     protected final TreeSet<Task> prioritizedTasks = new TreeSet<>(new TaskPriorityComparator());
     protected int generatorId = 0;
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
 
     protected final HistoryManager historyManager = Managers.getDefaultHistory();
 
@@ -106,10 +108,8 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public int addNewTask(Task task) throws TaskValidationException {
-        if (task.getStartTime() != null && hasIntersections(task)) {
-            throw new TaskValidationException("Время задачи пересекается, провете время: НАЧАЛО, КОНЕЦ");
-        }
+    public int addNewTask(Task task) {
+        checkIntersections(task);
         final int id = ++generatorId;
         task.setId(id);
         tasks.put(id, task);
@@ -118,7 +118,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public int addNewEpic(Epic epic) throws TaskValidationException {
+    public int addNewEpic(Epic epic) {
         final int id = ++generatorId;
         epic.setId(id);
         epics.put(id, epic);
@@ -126,20 +126,18 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public Integer addNewSubtask(Subtask subtask) throws TaskValidationException {
+    public Integer addNewSubtask(Subtask subtask) {
         final int epicId = subtask.getEpicId();
         Epic epic = epics.get(epicId);
         if (epic == null) {
             return null;
         }
-        if (subtask.getStartTime() != null && hasIntersections(subtask)) {
-            throw new TaskValidationException("Время подзадачи пересекается, провете время: НАЧАЛО, КОНЕЦ");
-        }
+        checkIntersections(subtask);
         final int id = ++generatorId;
         subtask.setId(id);
         subtasks.put(id, subtask);
         epic.addSubtaskId(subtask.getId());
-        updateEpicStatus(epicId);
+        updateEpic(epic);
         prioritizedTasks.add(subtask);
         return id;
     }
@@ -151,17 +149,20 @@ public class InMemoryTaskManager implements TaskManager {
         if (savedTask == null) {
             return;
         }
+        checkIntersections(task);
         tasks.put(id, task);
     }
 
     @Override
     public void updateEpic(Epic epic) {
-        Epic savedEpic = epics.get(epic.getId());
+        final int id = epic.getId();
+        Epic savedEpic = epics.get(id);
         if (savedEpic == null) {
             return;
         }
-        savedEpic.setName(epic.getName());
-        savedEpic.setDescription(epic.getDescription());
+        updateEpicStatus(id);
+        updateEpicDuration(epic);
+        epics.put(id, epic);
     }
 
     @Override
@@ -176,8 +177,9 @@ public class InMemoryTaskManager implements TaskManager {
         if (epic == null) {
             return;
         }
+        checkIntersections(subtask);
         subtasks.put(id, subtask);
-        updateEpicStatus(epicId);
+        updateEpic(epic);
     }
 
     @Override
@@ -214,9 +216,7 @@ public class InMemoryTaskManager implements TaskManager {
         if (epic == null) {
             return null;
         }
-        return epic.getSubtasksIds().stream().map(
-            id -> subtasks.get(id)
-        ).collect(Collectors.toList());
+        return epic.getSubtasksIds().stream().map(subtasks::get).collect(Collectors.toList());
     }
 
     // Получение истории просмотров
@@ -225,7 +225,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     // Управление статусами эпиков
-    protected void updateEpicStatus(int epicId) {
+    private void updateEpicStatus(int epicId) {
         Epic epic = epics.get(epicId);
         if (epic == null) {
             return;
@@ -254,7 +254,6 @@ public class InMemoryTaskManager implements TaskManager {
             } else {
                 epic.setStatus(Status.IN_PROGRESS);
             }
-            updateEpicDuration(epic);
         }
     }
 
@@ -277,30 +276,41 @@ public class InMemoryTaskManager implements TaskManager {
             if (endTime.isAfter(end)) {
                 end = endTime;
             }
-            duration =  duration.plus(subtask.getDuration());
+            duration = duration.plus(subtask.getDuration());
         }
         epic.setDuration(duration);
         epic.setStartTime(start);
         epic.setEndTime(end);
     }
 
+    private void checkIntersections(Task task) throws TaskValidationException {
+        if (task.getStartTime() != null && hasIntersections(task)) {
+            throw new TaskValidationException("Время задачи пересекается, проверьте время: "
+                    + task.getStartTime().format(formatter) + ", "
+                    + task.getEndTime().format(formatter) + ")"
+            );
+        }
+    }
+
     // Проверка, пересекаются ли две задачи по времени выполнения
-    protected boolean isIntersect(LocalDateTime start1, LocalDateTime end1, LocalDateTime start2, LocalDateTime end2) {
+    private boolean isIntersect(LocalDateTime start1, LocalDateTime end1, LocalDateTime start2, LocalDateTime end2) {
         return !(end1.isBefore(start2) || start1.isAfter(end2));
     }
 
     // Поиск пересечений в существующих задачах
-    protected boolean hasIntersections(Task task) {
+    private boolean hasIntersections(Task task) {
         if (prioritizedTasks.isEmpty()) {
             return false;
         }
         return prioritizedTasks.stream()
-                .filter(existedTask -> isIntersect(
+                .filter(existedTask -> !existedTask.equals(task))
+                .anyMatch(existedTask -> isIntersect(
                                 existedTask.getStartTime(),
                                 existedTask.getStartTime().plus(Duration.from(existedTask.getDuration())),
                                 task.getStartTime(),
                                 task.getStartTime().plus(Duration.from(task.getDuration()))
                         )
-                ).findFirst().isPresent();
+                );
     }
+
 }

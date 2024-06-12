@@ -7,8 +7,10 @@ import ru.yandex.javacource.kvitchenko.schedule.task.Epic;
 import ru.yandex.javacource.kvitchenko.schedule.task.Subtask;
 import ru.yandex.javacource.kvitchenko.schedule.task.Task;
 
-import java.io.*;
-
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.time.*;
 import java.util.Map;
@@ -35,14 +37,14 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             }
 
             for (Map.Entry<Integer, Subtask> entry : subtasks.entrySet()) {
-                final Task task = entry.getValue();
-                writer.write(toString(task));
+                final Subtask subtask = entry.getValue();
+                writer.write(toString(subtask));
                 writer.newLine();
             }
 
             for (Map.Entry<Integer, Epic> entry : epics.entrySet()) {
-                final Task task = entry.getValue();
-                writer.write(toString(task));
+                final Epic epic = entry.getValue();
+                writer.write(toString(epic));
                 writer.newLine();
             }
 
@@ -126,13 +128,13 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
 
         String[] split = value.split(",");
         // id,type,name,status,description,start,duration,epic
-        int id              = Integer.parseInt(split[0]);
-        TaskType type       = TaskType.valueOf(split[1]);
-        String name         = split[2];
-        Status status       = Status.valueOf(split[3]);
-        String description  = split[4];
+        int id = Integer.parseInt(split[0]);
+        TaskType type = TaskType.valueOf(split[1]);
+        String name = split[2];
+        Status status = Status.valueOf(split[3]);
+        String description = split[4];
         LocalDateTime start = null;
-        Duration duration   = null;
+        Duration duration = null;
 
         if (split.length >= 6 && !split[5].isEmpty()) {
             start = ZonedDateTime.ofInstant(Instant.ofEpochSecond(Long.parseLong(split[5])), zoneId).toLocalDateTime();
@@ -143,9 +145,9 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
 
         // id,name,description,status,startTime,duration
         return switch (type) {
-            case TASK -> new Task(id,name,description,status,start,duration);
-            case SUBTASK -> new Subtask(id,name,description,status,start,duration,Integer.parseInt(split[7]));
-            case EPIC -> new Epic(id,name,description,status,start,duration);
+            case TASK -> new Task(id, name, description, status, start, duration);
+            case SUBTASK -> new Subtask(id, name, description, status, start, duration, Integer.parseInt(split[7]));
+            case EPIC -> new Epic(id, name, description, status, start, duration);
         };
 
     }

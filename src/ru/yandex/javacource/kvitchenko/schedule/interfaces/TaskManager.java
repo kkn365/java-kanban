@@ -8,7 +8,6 @@ import java.util.List;
 
 public interface TaskManager {
 
-    // Получение списка всех задач.
     List<Task> getTasks();
 
     List<Epic> getEpics();

@@ -12,32 +12,13 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class InMemoryTaskManagerTest extends TaskManagerTest<InMemoryTaskManager> {
 
-    @Test
-    void TaskManagerTests() {
-        super.getTasksList();
-        super.getEpicsList();
-        super.getSubtasksList();
-        super.getPrioritizedTask();
-        super.tasksDeletion();
-        super.epicsDeletion();
-        super.subtasksDeletion();
-        super.getTaskById();
-        super.getEpicById();
-        super.getSubtaskById();
-        super.addTask();
-        super.addSubtask();
-        super.taskUpdating();
-        super.epicUpdating();
-        super.subtaskUpdating();
-        super.taskDeletion();
-        super.epicDeletion();
-        super.subtaskDeletion();
-        super.getEpicSubtasksListByEpicId();
-        super.getHistoryList();
+    @Override
+    protected InMemoryTaskManager createTaskManager() {
+        return new InMemoryTaskManager();
     }
 
     @Test
-    void checkIntersectionCalculatesIsCorrect() {
+    void shouldThrowTaskValidationExceptionIfTaskHasIntersections() {
         assertThrows(TaskValidationException.class, () -> {
             Duration standartDuration = Duration.ofMinutes(15);
             Task task1 = new Task("Test task 1", "Test task 1 description");
@@ -54,4 +35,5 @@ class InMemoryTaskManagerTest extends TaskManagerTest<InMemoryTaskManager> {
             super.taskManager.addNewTask(task3);
         }, "Intersection detected");
     }
+
 }

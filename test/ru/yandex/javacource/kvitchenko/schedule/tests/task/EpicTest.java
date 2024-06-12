@@ -1,5 +1,6 @@
 package ru.yandex.javacource.kvitchenko.schedule.tests.task;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.yandex.javacource.kvitchenko.schedule.enums.Status;
 import ru.yandex.javacource.kvitchenko.schedule.interfaces.TaskManager;
@@ -16,15 +17,15 @@ class EpicTest {
 
     private final TaskManager taskManager = Managers.getDefault();
 
-    /*
-     * 1. Для расчёта статуса Epic. Граничные условия:
-     *    a. Все подзадачи со статусом NEW.
-     *    b. Все подзадачи со статусом DONE.
-     *    c. Подзадачи со статусами NEW и DONE.
-     *    d. Подзадачи со статусом IN_PROGRESS.
-     */
+    @BeforeEach
+    public void beforeEach() {
+        taskManager.deleteTasks();
+        taskManager.deleteSubtasks();
+        taskManager.deleteEpics();
+    }
+
     @Test
-    void calculateEpicStatusBySubtaskStatuses() {
+    void shouldCalculateEpicStatusBySubtaskStatuses() {
 
         LocalDateTime subtask1StartTime = LocalDateTime.now();
         LocalDateTime subtask2StartTime = subtask1StartTime.plusMinutes(20);
@@ -88,4 +89,41 @@ class EpicTest {
 
     }
 
+    @Test
+    void shouldCalculateEpicTimeParametersFromIncludedSubtasks() {
+        LocalDateTime subtask1StartTime = LocalDateTime.now();
+        LocalDateTime subtask2StartTime = subtask1StartTime.plusMinutes(20);
+        LocalDateTime subtask3StartTime = subtask1StartTime.plusMinutes(40);
+        LocalDateTime subtask4StartTime = subtask1StartTime.plusMinutes(60);
+
+        Duration standartDuration = Duration.ofMinutes(15);
+
+        Epic epic = new Epic("Test epic with four subtasks", "Test epic description");
+        epic.setStartTime(subtask1StartTime.minusMinutes(10));
+        epic.setDuration(standartDuration);
+        final int epicId = taskManager.addNewEpic(epic);
+
+        Subtask subtask1 = new Subtask("Test subtask 1", "Subtask 1 description", epicId);
+        subtask1.setStartTime(subtask1StartTime);
+        subtask1.setDuration(standartDuration);
+        taskManager.addNewSubtask(subtask1);
+
+        Subtask subtask2 = new Subtask("Test subtask 2", "Subtask 2 description", epicId);
+        subtask2.setStartTime(subtask2StartTime);
+        subtask2.setDuration(standartDuration);
+        taskManager.addNewSubtask(subtask2);
+
+        Subtask subtask3 = new Subtask("Test subtask 3", "Subtask 3 description", epicId);
+        subtask3.setStartTime(subtask3StartTime);
+        subtask3.setDuration(standartDuration);
+        taskManager.addNewSubtask(subtask3);
+
+        Subtask subtask4 = new Subtask("Test subtask 4", "Subtask 4 description", epicId);
+        subtask4.setStartTime(subtask4StartTime);
+        subtask4.setDuration(standartDuration);
+        taskManager.addNewSubtask(subtask4);
+
+        assertEquals(epic.getStartTime(),subtask1StartTime, "Epic start time calculates incorrect.");
+        assertEquals(epic.getEndTime(),subtask4.getEndTime(), "Epic end time calculates incorrect.");
+    }
 }

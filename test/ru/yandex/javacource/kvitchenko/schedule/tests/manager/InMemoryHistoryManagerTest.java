@@ -26,7 +26,7 @@ class InMemoryHistoryManagerTest {
 
     // void add(Task task);
     @Test
-    void taskIsAddedToHistory() {
+    void shouldAddTask() {
         Task task = new Task("Test task", "Test task description");
         task.setStartTime(LocalDateTime.of(2024, 6, 1, 10, 16));
         task.setDuration(Duration.ofMinutes(15));
@@ -37,7 +37,7 @@ class InMemoryHistoryManagerTest {
 
     // void remove(int id);
     @Test
-    void taskIsRemovedFromHistoryById() {
+    void shouldRemoveTaskById() {
         Task task1 = new Task("Test 1 task", "Test task 1 description");
         task1.setStartTime(LocalDateTime.of(2024, 6, 1, 10, 0));
         task1.setDuration(Duration.ofMinutes(15));
@@ -75,7 +75,7 @@ class InMemoryHistoryManagerTest {
 
     // List<Task> getHistory();
     @Test
-    void historyDoesNotContainDuplications() {
+    void shouldnotContainDuplicates() {
         Task task1 = new Task("Test 1 task", "Test task 1 description");
         task1.setStartTime(LocalDateTime.of(2024, 6, 1, 10, 0));
         task1.setDuration(Duration.ofMinutes(15));

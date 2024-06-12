@@ -22,7 +22,13 @@ public class Task {
         status = Status.NEW;
     }
 
-    public Task(int id, String name, String description, Status status, LocalDateTime startTime, Duration duration) {
+    public Task(int id,
+                String name,
+                String description,
+                Status status,
+                LocalDateTime startTime,
+                Duration duration
+    ) {
         this.id = id;
         this.name = name;
         this.description = description;

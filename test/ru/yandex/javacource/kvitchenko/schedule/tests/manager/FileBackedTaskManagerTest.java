@@ -5,37 +5,25 @@ import ru.yandex.javacource.kvitchenko.schedule.exceptions.ManagerSaveException;
 import ru.yandex.javacource.kvitchenko.schedule.manager.FileBackedTaskManager;
 
 import java.io.File;
+import java.nio.file.Files;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class FileBackedTaskManagerTest extends TaskManagerTest<FileBackedTaskManager> {
 
-    @Test
-    void TaskManagerTests() {
-        super.getTasksList();
-        super.getEpicsList();
-        super.getSubtasksList();
-        super.getPrioritizedTask();
-        super.tasksDeletion();
-        super.epicsDeletion();
-        super.subtasksDeletion();
-        super.getTaskById();
-        super.getEpicById();
-        super.getSubtaskById();
-        super.addTask();
-        super.addSubtask();
-        super.taskUpdating();
-        super.epicUpdating();
-        super.subtaskUpdating();
-        super.taskDeletion();
-        super.epicDeletion();
-        super.subtaskDeletion();
-        super.getEpicSubtasksListByEpicId();
-        super.getHistoryList();
+    private static final String HOME = System.getProperty("user.home");
+
+    @Override
+    protected FileBackedTaskManager createTaskManager() {
+        File file = new File(HOME + File.separator + "java-kanban.csv");
+        if (Files.exists(file.toPath())) {
+            return FileBackedTaskManager.loadFromFile(file);
+        }
+        return new FileBackedTaskManager(file);
     }
 
     @Test
-    void testException() {
+    void shouldThrowManagerSaveExceptionIfFileNotExists() {
         assertThrows(ManagerSaveException.class, () -> {
             File file = new File("/test.csv");
             FileBackedTaskManager.loadFromFile(file);
