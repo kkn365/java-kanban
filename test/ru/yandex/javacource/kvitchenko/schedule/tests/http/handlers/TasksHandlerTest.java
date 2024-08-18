@@ -85,7 +85,7 @@ public class TasksHandlerTest {
         Pattern pattern = Pattern.compile("\\{[^\\{]*" + TEST_NAME_VALUE + "[^\\}]*\\}");
         Matcher matcher = pattern.matcher(response.body());
         if (matcher.find()) {
-            taskJsonStringFromServer = matcher.group(0).toString();
+            taskJsonStringFromServer = matcher.group(0);
         }
         assertTrue(taskJsonStringFromServer.contains(TEST_NAME_VALUE), "Server does not return created task"
                 + " after request GET /tasks");

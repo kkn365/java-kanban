@@ -30,7 +30,7 @@ class InMemoryTaskManagerTest extends TaskManagerTest<InMemoryTaskManager> {
                 "Test task",
                 "Test task description",
                 Status.NEW,
-                LocalDateTime.of(2024, 06, 20, 9, 0),
+                LocalDateTime.of(2024, 6, 20, 9, 0),
                standartDuration
         );
 
@@ -39,7 +39,7 @@ class InMemoryTaskManagerTest extends TaskManagerTest<InMemoryTaskManager> {
                 "Test task",
                 "Test task description",
                 Status.NEW,
-                LocalDateTime.of(2024, 06, 20, 9, 2),
+                LocalDateTime.of(2024, 6, 20, 9, 2),
                 standartDuration
         );
 

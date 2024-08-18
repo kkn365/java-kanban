@@ -304,7 +304,7 @@ public class InMemoryTaskManager implements TaskManager {
 
     // Проверка, пересекаются ли две задачи по времени выполнения
     private boolean isIntersect(LocalDateTime start1, LocalDateTime end1, LocalDateTime start2, LocalDateTime end2) {
-        return !( end1.isBefore(start2) || start1.isAfter(end2) );
+        return !(end1.isBefore(start2) || start1.isAfter(end2));
     }
 
     // Поиск пересечений в существующих задачах

@@ -133,7 +133,7 @@ public class SubtasksHandlerTest {
         Pattern subtaskPattern = Pattern.compile("\\{[^\\{]*" + TEST_SUBTASK_NAME_VALUE + "[^\\}]*\\}");
         Matcher subtaskMatcher = subtaskPattern.matcher(response.body());
         if (subtaskMatcher.find()) {
-            subtaskJsonStringFromServer = subtaskMatcher.group(0).toString();
+            subtaskJsonStringFromServer = subtaskMatcher.group(0);
         }
         assertTrue(subtaskJsonStringFromServer.contains(TEST_SUBTASK_NAME_VALUE), "Server does not return "
                 + "created task after request GET /subtasks");

@@ -40,7 +40,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
                 "Test task",
                 "Test task description",
                 Status.NEW,
-                LocalDateTime.of(2024, 06, 1, 9, 0),
+                LocalDateTime.of(2024, 6, 1, 9, 0),
                 standartDuration
         );
 
@@ -49,7 +49,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
                 "Test task",
                 "Test task description",
                 Status.NEW,
-                LocalDateTime.of(2024, 06, 1, 9, 16),
+                LocalDateTime.of(2024, 6, 1, 9, 16),
                 standartDuration
         );
 
@@ -71,7 +71,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
                 "Test epic",
                 "Test epic description",
                 Status.NEW,
-                LocalDateTime.of(2024, 06, 2, 9, 0),
+                LocalDateTime.of(2024, 6, 2, 9, 0),
                 standartDuration
         );
 
@@ -80,7 +80,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
                 "Test epic",
                 "Test epic description",
                 Status.NEW,
-                LocalDateTime.of(2024, 06, 2, 10, 0),
+                LocalDateTime.of(2024, 6, 2, 10, 0),
                 standartDuration
         );
 
@@ -102,7 +102,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
                 "Test epic with two subtasks",
                 "Test epic description",
                 Status.NEW,
-                LocalDateTime.of(2024, 06, 3, 9, 0),
+                LocalDateTime.of(2024, 6, 3, 9, 0),
                 standartDuration
         );
 
@@ -111,7 +111,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
                 "Test subtask 1",
                 "Test subtask 1 description",
                 Status.IN_PROGRESS,
-                LocalDateTime.of(2024, 06, 3, 9, 0),
+                LocalDateTime.of(2024, 6, 3, 9, 0),
                 standartDuration,
                 1000
         );
@@ -121,7 +121,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
                 "Test subtask 2",
                 "Test subtask 2 description",
                 Status.IN_PROGRESS,
-                LocalDateTime.of(2024, 06, 3, 9, 16),
+                LocalDateTime.of(2024, 6, 3, 9, 16),
                 standartDuration,
                 1000
         );
@@ -146,7 +146,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
                 "Test task",
                 "Test task description",
                 Status.NEW,
-                LocalDateTime.of(2024, 06, 4, 9, 0),
+                LocalDateTime.of(2024, 6, 4, 9, 0),
                 standartDuration
         );
 
@@ -155,7 +155,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
                 "Test task",
                 "Test task description",
                 Status.NEW,
-                LocalDateTime.of(2024, 06, 4, 9, 16),
+                LocalDateTime.of(2024, 6, 4, 9, 16),
                 standartDuration
         );
 
@@ -175,7 +175,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
                 "Test task",
                 "Test task description",
                 Status.NEW,
-                LocalDateTime.of(2024, 06, 5, 9, 0),
+                LocalDateTime.of(2024, 6, 5, 9, 0),
                 standartDuration
         );
         taskManager.addNewTask(task1);
@@ -193,7 +193,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
                 "Test epic",
                 "Test epic description",
                 Status.NEW,
-                LocalDateTime.of(2024, 06, 6, 9, 0),
+                LocalDateTime.of(2024, 6, 6, 9, 0),
                 standartDuration
         );
 
@@ -202,7 +202,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
                 "Test epic",
                 "Test epic description",
                 Status.NEW,
-                LocalDateTime.of(2024, 06, 6, 10, 0),
+                LocalDateTime.of(2024, 6, 6, 10, 0),
                 standartDuration
         );
 
@@ -222,7 +222,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
                 "Test epic with two subtasks",
                 "Test epic description",
                 Status.NEW,
-                LocalDateTime.of(2024, 06, 7, 9, 0),
+                LocalDateTime.of(2024, 6, 7, 9, 0),
                 standartDuration
         );
 
@@ -231,7 +231,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
                 "Test subtask 1",
                 "Test subtask 1 description",
                 Status.IN_PROGRESS,
-                LocalDateTime.of(2024, 06, 7, 9, 0),
+                LocalDateTime.of(2024, 6, 7, 9, 0),
                 standartDuration,
                 1000
         );
@@ -241,7 +241,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
                 "Test subtask 2",
                 "Test subtask 2 description",
                 Status.IN_PROGRESS,
-                LocalDateTime.of(2024, 06, 20, 9, 16),
+                LocalDateTime.of(2024, 6, 20, 9, 16),
                 standartDuration,
                 1000
         );
@@ -265,7 +265,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
                 "Test task",
                 "Test task description",
                 Status.NEW,
-                LocalDateTime.of(2024, 06, 8, 9, 0),
+                LocalDateTime.of(2024, 6, 8, 9, 0),
                 standartDuration
         );
 
@@ -283,7 +283,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
                 "Test epic with two subtasks",
                 "Test epic description",
                 Status.NEW,
-                LocalDateTime.of(2024, 06, 9, 9, 0),
+                LocalDateTime.of(2024, 6, 9, 9, 0),
                 standartDuration
         );
 
@@ -301,7 +301,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
                 "Test epic with two subtasks",
                 "Test epic description",
                 Status.NEW,
-                LocalDateTime.of(2024, 06, 10, 9, 0),
+                LocalDateTime.of(2024, 6, 10, 9, 0),
                 standartDuration
         );
 
@@ -310,7 +310,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
                 "Test subtask 1",
                 "Test subtask 1 description",
                 Status.IN_PROGRESS,
-                LocalDateTime.of(2024, 06, 10, 9, 0),
+                LocalDateTime.of(2024, 6, 10, 9, 0),
                 standartDuration,
                 1000
         );
@@ -331,7 +331,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
                 "Test task",
                 "Test task description",
                 Status.NEW,
-                LocalDateTime.of(2024, 06, 11, 9, 0),
+                LocalDateTime.of(2024, 6, 11, 9, 0),
                 standartDuration
         );
 
@@ -352,7 +352,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
                 "Test epic with two subtasks",
                 "Test epic description",
                 Status.NEW,
-                LocalDateTime.of(2024, 06, 12, 9, 0),
+                LocalDateTime.of(2024, 6, 12, 9, 0),
                 standartDuration
         );
 
@@ -361,7 +361,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
                 "Test subtask 1",
                 "Test subtask 1 description",
                 Status.IN_PROGRESS,
-                LocalDateTime.of(2024, 06, 12, 9, 0),
+                LocalDateTime.of(2024, 6, 12, 9, 0),
                 standartDuration,
                 1000
         );
@@ -386,7 +386,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
                 "Test epic with two subtasks",
                 "Test epic description",
                 Status.NEW,
-                LocalDateTime.of(2024, 06, 13, 9, 0),
+                LocalDateTime.of(2024, 6, 13, 9, 0),
                 standartDuration
         );
 
@@ -395,7 +395,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
                 "Test subtask 1",
                 "Test subtask 1 description",
                 Status.IN_PROGRESS,
-                LocalDateTime.of(2024, 06, 13, 9, 0),
+                LocalDateTime.of(2024, 6, 13, 9, 0),
                 standartDuration,
                 1000
         );
@@ -420,7 +420,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
                 "Test task",
                 "Test task description",
                 Status.NEW,
-                LocalDateTime.of(2024, 06, 14, 9, 0),
+                LocalDateTime.of(2024, 6, 14, 9, 0),
                 standartDuration
         );
 
@@ -442,7 +442,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
                 "Test epic with two subtasks",
                 "Test epic description",
                 Status.NEW,
-                LocalDateTime.of(2024, 06, 15, 9, 0),
+                LocalDateTime.of(2024, 6, 15, 9, 0),
                 standartDuration
         );
 
@@ -464,7 +464,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
                 "Test epic with two subtasks",
                 "Test epic description",
                 Status.NEW,
-                LocalDateTime.of(2024, 06, 16, 9, 0),
+                LocalDateTime.of(2024, 6, 16, 9, 0),
                 standartDuration
         );
 
@@ -473,7 +473,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
                 "Test subtask 1",
                 "Test subtask 1 description",
                 Status.IN_PROGRESS,
-                LocalDateTime.of(2024, 06, 16, 9, 0),
+                LocalDateTime.of(2024, 6, 16, 9, 0),
                 standartDuration,
                 1000
         );
@@ -497,7 +497,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
                 "Test epic with two subtasks",
                 "Test epic description",
                 Status.NEW,
-                LocalDateTime.of(2024, 06, 17, 9, 0),
+                LocalDateTime.of(2024, 6, 17, 9, 0),
                 standartDuration
         );
 
@@ -506,7 +506,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
                 "Test subtask 1",
                 "Test subtask 1 description",
                 Status.IN_PROGRESS,
-                LocalDateTime.of(2024, 06, 17, 9, 0),
+                LocalDateTime.of(2024, 6, 17, 9, 0),
                 standartDuration,
                 1000
         );
@@ -516,7 +516,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
                 "Test subtask 2",
                 "Test subtask 2 description",
                 Status.IN_PROGRESS,
-                LocalDateTime.of(2024, 06, 17, 9, 16),
+                LocalDateTime.of(2024, 6, 17, 9, 16),
                 standartDuration,
                 1000
         );
@@ -542,7 +542,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
                 "Test task 1",
                 "Test task 1 description",
                 Status.NEW,
-                LocalDateTime.of(2024, 06, 18, 9, 0),
+                LocalDateTime.of(2024, 6, 18, 9, 0),
                 standartDuration
         );
 
@@ -551,7 +551,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
                 "Test task 2",
                 "Test task 2 description",
                 Status.NEW,
-                LocalDateTime.of(2024, 06, 18, 9, 16),
+                LocalDateTime.of(2024, 6, 18, 9, 16),
                 standartDuration
         );
 
@@ -560,7 +560,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
                 "Test task 3",
                 "Test task 3 description",
                 Status.NEW,
-                LocalDateTime.of(2024, 06, 18, 9, 32),
+                LocalDateTime.of(2024, 6, 18, 9, 32),
                 standartDuration
         );
 
@@ -588,7 +588,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
                 "Test epic with two subtasks",
                 "Test epic description",
                 Status.NEW,
-                LocalDateTime.of(2024, 06, 19, 9, 0),
+                LocalDateTime.of(2024, 6, 19, 9, 0),
                 standartDuration
         );
 
@@ -597,7 +597,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
                 "Test subtask 1",
                 "Test subtask 1 description",
                 Status.IN_PROGRESS,
-                LocalDateTime.of(2024, 06, 19, 9, 0),
+                LocalDateTime.of(2024, 6, 19, 9, 0),
                 standartDuration,
                 1000
         );
@@ -607,7 +607,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
                 "Test subtask 2",
                 "Test subtask 2 description",
                 Status.DONE,
-                LocalDateTime.of(2024, 06, 19, 9, 16),
+                LocalDateTime.of(2024, 6, 19, 9, 16),
                 standartDuration,
                 1000
         );
@@ -646,7 +646,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
                 "Test epic with two subtasks",
                 "Test epic description",
                 Status.NEW,
-                LocalDateTime.of(2024, 06, 20, 18, 0),
+                LocalDateTime.of(2024, 6, 20, 18, 0),
                 standartDuration
         );
 
@@ -655,7 +655,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
                 "Test subtask 1",
                 "Test subtask 1 description",
                 Status.IN_PROGRESS,
-                LocalDateTime.of(2024, 06, 20, 18, 0),
+                LocalDateTime.of(2024, 6, 20, 18, 0),
                 standartDuration,
                 1000
         );
@@ -665,7 +665,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
                 "Test subtask 2",
                 "Test subtask 2 description",
                 Status.DONE,
-                LocalDateTime.of(2024, 06, 20, 18, 16),
+                LocalDateTime.of(2024, 6, 20, 18, 16),
                 standartDuration,
                 1000
         );
@@ -675,7 +675,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
                 "Test subtask 3",
                 "Test subtask 3 description",
                 Status.DONE,
-                LocalDateTime.of(2024, 06, 20, 18, 32),
+                LocalDateTime.of(2024, 6, 20, 18, 32),
                 standartDuration,
                 1000
         );

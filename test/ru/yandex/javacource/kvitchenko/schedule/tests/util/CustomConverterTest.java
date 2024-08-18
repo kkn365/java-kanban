@@ -47,7 +47,7 @@ public class CustomConverterTest {
                 "Test task",
                 "Test task description",
                 Status.NEW,
-                LocalDateTime.of(2024, 06, 20, 9, 0),
+                LocalDateTime.of(2024, 6, 20, 9, 0),
                 Duration.ofMinutes(15)
         );
 
@@ -79,7 +79,7 @@ public class CustomConverterTest {
                 "Test subtask",
                 "Test subtask description",
                 Status.DONE,
-                LocalDateTime.of(2024, 06, 20, 9, 0),
+                LocalDateTime.of(2024, 6, 20, 9, 0),
                 Duration.ofMinutes(15),
                 23
         );
@@ -113,7 +113,7 @@ public class CustomConverterTest {
                 "Test epic",
                 "Test epic description",
                 Status.DONE,
-                LocalDateTime.of(2024, 06, 20, 9, 0),
+                LocalDateTime.of(2024, 6, 20, 9, 0),
                 Duration.ofMinutes(15)
         );
 

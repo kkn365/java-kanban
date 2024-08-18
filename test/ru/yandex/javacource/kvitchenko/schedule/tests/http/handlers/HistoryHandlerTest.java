@@ -31,18 +31,17 @@ public class HistoryHandlerTest {
     private static final String TEST_TASK1_NAME_VALUE = "TESTHISTORYMANAGERTASK1";
     private static final String TEST_TASK2_NAME_VALUE = "TESTHISTORYMANAGERTASK2";
     private static final String TEST_TASK3_NAME_VALUE = "TESTHISTORYMANAGERTASK3";
-    static HttpTaskServer taskServer = new HttpTaskServer();
 
     HttpClient client = HttpClient.newHttpClient();
 
     @BeforeAll
     public static void setUp() throws IOException {
-        taskServer.start();
+        HttpTaskServer.start();
     }
 
     @AfterAll
     public static void shutDown() {
-        taskServer.stop();
+        HttpTaskServer.stop();
     }
 
     @Test
@@ -132,7 +131,7 @@ public class HistoryHandlerTest {
         assertEquals(200, response.statusCode(), "Server return unexpected status code after"
                 + "request GET /history");
 
-        GsonBuilder builder = taskServer.getGson();
+        GsonBuilder builder = HttpTaskServer.getGson();
         Type listType = new TypeToken<List<Task>>() {
         }.getType();
         List<Task> tasksList = builder.create().fromJson(response.body(), listType);
