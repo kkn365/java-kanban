@@ -1,4 +1,4 @@
-package ru.yandex.javacource.kvitchenko.schedule.manager;
+package ru.yandex.javacource.kvitchenko.schedule.managers;
 
 import ru.yandex.javacource.kvitchenko.schedule.interfaces.HistoryManager;
 import ru.yandex.javacource.kvitchenko.schedule.task.Task;
@@ -7,15 +7,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class InMemoryHistoryManager implements HistoryManager {
+public class InMemoryHistoryManager<T extends Task> implements HistoryManager<T> {
 
-    private Node<Task> head; // указатель на первый элемент списка
-    private Node<Task> tail; // указатель на последний элемент списка
+    private Node<T> head; // указатель на первый элемент списка
+    private Node<T> tail; // указатель на последний элемент списка
 
-    private final HashMap<Integer, Node<Task>> history = new HashMap<>();
+    private final HashMap<Integer, Node<T>> history = new HashMap<>();
 
     @Override
-    public void add(Task task) {
+    public void add(T task) {
         final int taskId = task.getId();
         linkLast(task);
         //удалить элемент из списка, если он уже есть в истории обращений
@@ -25,14 +25,14 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     @Override
     public void remove(int id) {
-        final Node<Task> node = history.remove(id);
+        final Node<T> node = history.remove(id);
         if (node == null) {
             return;
         }
         removeNode(node);
     }
 
-    private void removeNode(Node<Task> node) {
+    private void removeNode(Node<T> node) {
         if (node.getPrev() != null) {
             node.getPrev().setNext(node.getNext());
             if (node.getNext() == null) {
@@ -50,8 +50,8 @@ public class InMemoryHistoryManager implements HistoryManager {
         }
     }
 
-    public void linkLast(Task task) {
-        final Node<Task> newNode = new Node<>(task.copy(), tail, null);
+    public void linkLast(T task) {
+        final Node<T> newNode = new Node<>((T)task.copy(), tail, null);
         if (head == null) {
             head = newNode;
         } else {
@@ -61,10 +61,10 @@ public class InMemoryHistoryManager implements HistoryManager {
     }
 
     @Override
-    public List<Task> getHistory() {
-        List<Task> historyList = new ArrayList<>();
+    public List<T> getHistory() {
+        List<T> historyList = new ArrayList<>();
         if (head != null) {
-            Node<Task> curNode = tail;
+            Node<T> curNode = tail;
             while (curNode.getPrev() != null) {
                 historyList.add(curNode.getData());
                 curNode = curNode.getPrev();

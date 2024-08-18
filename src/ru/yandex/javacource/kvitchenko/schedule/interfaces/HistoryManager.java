@@ -1,15 +1,13 @@
 package ru.yandex.javacource.kvitchenko.schedule.interfaces;
 
-import ru.yandex.javacource.kvitchenko.schedule.task.Task;
-
 import java.util.List;
 
-public interface HistoryManager {
+public interface HistoryManager<T> {
 
-    void add(Task task);
+    void add(T task);
 
     void remove(int id);
 
-    List<Task> getHistory();
+    List<T> getHistory();
 
 }

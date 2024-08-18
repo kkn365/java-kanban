@@ -2,7 +2,7 @@ package ru.yandex.javacource.kvitchenko.schedule.tests.manager;
 
 import org.junit.jupiter.api.Test;
 import ru.yandex.javacource.kvitchenko.schedule.exceptions.ManagerSaveException;
-import ru.yandex.javacource.kvitchenko.schedule.manager.FileBackedTaskManager;
+import ru.yandex.javacource.kvitchenko.schedule.managers.FileBackedTaskManager;
 
 import java.io.File;
 import java.nio.file.Files;

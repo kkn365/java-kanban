@@ -15,13 +15,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class InMemoryHistoryManagerTest {
 
-    /*
-     * Для HistoryManager — тесты для всех методов интерфейса. Граничные условия:
-     *    a. Пустая история задач.
-     *    b. Дублирование.
-     *    c. Удаление из истории: начало, середина, конец.
-     */
-
     final HistoryManager historyManager = Managers.getDefaultHistory();
 
     // void add(Task task);
@@ -58,24 +51,24 @@ class InMemoryHistoryManagerTest {
 
         historyManager.remove(task1.getId());
         assertNotEquals(task1, historyManager.getHistory().stream().filter(
-                task -> task.getId().equals(task1.getId())
+                task -> task.getClass().equals(task1.getId())
         ).collect(Collectors.toList()), "Task 1 does not removed from history.");
 
         historyManager.remove(task3.getId());
         assertNotEquals(task3, historyManager.getHistory().stream().filter(
-                task -> task.getId().equals(task3.getId())
+                task -> task.getClass().equals(task3.getId())
         ).collect(Collectors.toList()), "Task 3 does not removed from history.");
 
         historyManager.remove(task2.getId());
         assertNotEquals(task2, historyManager.getHistory().stream().filter(
-                task -> task.getId().equals(task2.getId())
+                task -> task.getClass().equals(task2.getId())
         ).collect(Collectors.toList()), "Task 2 does not removed from history.");
 
     }
 
     // List<Task> getHistory();
     @Test
-    void shouldnotContainDuplicates() {
+    void shouldNotContainDuplicates() {
         Task task1 = new Task("Test 1 task", "Test task 1 description");
         task1.setStartTime(LocalDateTime.of(2024, 6, 1, 10, 0));
         task1.setDuration(Duration.ofMinutes(15));
