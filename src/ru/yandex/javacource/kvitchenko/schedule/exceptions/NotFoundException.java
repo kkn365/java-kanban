@@ -2,7 +2,8 @@ package ru.yandex.javacource.kvitchenko.schedule.exceptions;
 
 public class NotFoundException extends RuntimeException {
 
-    public NotFoundException() {}
+    public NotFoundException() {
+    }
 
     public NotFoundException(String message) {
         super(message);
