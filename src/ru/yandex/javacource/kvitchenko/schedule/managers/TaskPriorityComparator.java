@@ -1,4 +1,4 @@
-package ru.yandex.javacource.kvitchenko.schedule.manager;
+package ru.yandex.javacource.kvitchenko.schedule.managers;
 
 import ru.yandex.javacource.kvitchenko.schedule.task.Task;
 

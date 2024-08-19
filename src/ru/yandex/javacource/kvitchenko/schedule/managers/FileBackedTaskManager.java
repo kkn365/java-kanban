@@ -1,4 +1,4 @@
-package ru.yandex.javacource.kvitchenko.schedule.manager;
+package ru.yandex.javacource.kvitchenko.schedule.managers;
 
 import ru.yandex.javacource.kvitchenko.schedule.enums.Status;
 import ru.yandex.javacource.kvitchenko.schedule.enums.TaskType;
@@ -36,15 +36,15 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
                 writer.newLine();
             }
 
-            for (Map.Entry<Integer, Subtask> entry : subtasks.entrySet()) {
-                final Subtask subtask = entry.getValue();
-                writer.write(toString(subtask));
-                writer.newLine();
-            }
-
             for (Map.Entry<Integer, Epic> entry : epics.entrySet()) {
                 final Epic epic = entry.getValue();
                 writer.write(toString(epic));
+                writer.newLine();
+            }
+
+            for (Map.Entry<Integer, Subtask> entry : subtasks.entrySet()) {
+                final Subtask subtask = entry.getValue();
+                writer.write(toString(subtask));
                 writer.newLine();
             }
 
@@ -82,7 +82,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             }
             taskManager.generatorId = generatorId;
         } catch (IOException e) {
-            throw new ManagerSaveException("Can't read form file: " + file.getName(), e);
+            throw new ManagerSaveException("Can't read from file: " + file.getName(), e);
         }
         return taskManager;
     }
@@ -90,13 +90,13 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     private void addAnyTask(Task task) {
         switch (task.getType()) {
             case TASK:
-                tasks.put(task.getId(), task);
+                super.addNewTask(task);
                 break;
             case SUBTASK:
-                subtasks.put(task.getId(), (Subtask) task);
+                super.addNewSubtask((Subtask) task);
                 break;
             case EPIC:
-                epics.put(task.getId(), (Epic) task);
+                super.addNewEpic((Epic) task);
                 for (Subtask subtask : getEpicSubtasks(task.getId())) {
                     ((Epic) task).addSubtaskId(subtask.getId());
                 }

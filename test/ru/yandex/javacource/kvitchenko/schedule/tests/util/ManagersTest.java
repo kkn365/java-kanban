@@ -3,8 +3,8 @@ package ru.yandex.javacource.kvitchenko.schedule.tests.util;
 import org.junit.jupiter.api.Test;
 import ru.yandex.javacource.kvitchenko.schedule.interfaces.HistoryManager;
 import ru.yandex.javacource.kvitchenko.schedule.interfaces.TaskManager;
-import ru.yandex.javacource.kvitchenko.schedule.manager.InMemoryHistoryManager;
-import ru.yandex.javacource.kvitchenko.schedule.manager.InMemoryTaskManager;
+import ru.yandex.javacource.kvitchenko.schedule.managers.InMemoryHistoryManager;
+import ru.yandex.javacource.kvitchenko.schedule.managers.InMemoryTaskManager;
 import ru.yandex.javacource.kvitchenko.schedule.util.Managers;
 
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;

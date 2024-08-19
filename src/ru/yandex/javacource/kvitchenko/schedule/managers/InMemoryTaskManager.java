@@ -1,6 +1,7 @@
-package ru.yandex.javacource.kvitchenko.schedule.manager;
+package ru.yandex.javacource.kvitchenko.schedule.managers;
 
 import ru.yandex.javacource.kvitchenko.schedule.enums.Status;
+import ru.yandex.javacource.kvitchenko.schedule.exceptions.NotFoundException;
 import ru.yandex.javacource.kvitchenko.schedule.exceptions.TaskValidationException;
 import ru.yandex.javacource.kvitchenko.schedule.interfaces.HistoryManager;
 import ru.yandex.javacource.kvitchenko.schedule.interfaces.TaskManager;
@@ -78,51 +79,55 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public Task getTask(int id) {
+    public Task getTask(int id) throws NotFoundException {
         Task task = tasks.get(id);
         if (task == null) {
-            return null;
+            throw new NotFoundException("Task id=" + id + " not found.");
         }
         historyManager.add(task);
         return task;
     }
 
     @Override
-    public Epic getEpic(int id) {
+    public Epic getEpic(int id) throws NotFoundException {
         Epic epic = epics.get(id);
         if (epic == null) {
-            return null;
+            throw new NotFoundException("Epic id=" + id + " not found.");
         }
         historyManager.add(epic);
         return epic;
     }
 
     @Override
-    public Subtask getSubtask(int id) {
+    public Subtask getSubtask(int id) throws NotFoundException {
         Subtask subtask = subtasks.get(id);
         if (subtask == null) {
-            return null;
+            throw new NotFoundException("Subtask id=" + id + " not found.");
         }
         historyManager.add(subtask);
         return subtask;
     }
 
     @Override
-    public int addNewTask(Task task) {
+    public int addNewTask(Task task) throws TaskValidationException {
         checkIntersections(task);
-        final int id = ++generatorId;
-        task.setId(id);
-        tasks.put(id, task);
+        if (task.getId() == null || task.getId() == 0) {
+            final int id = ++generatorId;
+            task.setId(id);
+        }
+        tasks.put(task.getId(), task);
         prioritizedTasks.add(task);
-        return id;
+        return task.getId();
     }
 
     @Override
     public int addNewEpic(Epic epic) {
-        final int id = ++generatorId;
-        epic.setId(id);
-        epics.put(id, epic);
-        return id;
+        if (epic.getId() == null || epic.getId() == 0) {
+            final int id = ++generatorId;
+            epic.setId(id);
+        }
+        epics.put(epic.getId(), epic);
+        return epic.getId();
     }
 
     @Override
@@ -133,32 +138,37 @@ public class InMemoryTaskManager implements TaskManager {
             return null;
         }
         checkIntersections(subtask);
-        final int id = ++generatorId;
-        subtask.setId(id);
-        subtasks.put(id, subtask);
+        if (subtask.getId() == null || subtask.getId() == 0) {
+            final int id = ++generatorId;
+            subtask.setId(id);
+        }
+        subtasks.put(subtask.getId(), subtask);
         epic.addSubtaskId(subtask.getId());
         updateEpic(epic);
         prioritizedTasks.add(subtask);
-        return id;
+        return subtask.getId();
     }
 
     @Override
-    public void updateTask(Task task) {
+    public void updateTask(Task task) throws TaskValidationException, NotFoundException {
         final int id = task.getId();
         final Task savedTask = tasks.get(id);
         if (savedTask == null) {
-            return;
+            throw new NotFoundException("Task id=" + id + " not found.");
         }
-        checkIntersections(task);
+        if (!task.getStartTime().equals(savedTask.getStartTime()) &&
+                !task.getDuration().equals(savedTask.getDuration())) {
+            checkIntersections(savedTask);
+        }
         tasks.put(id, task);
     }
 
     @Override
-    public void updateEpic(Epic epic) {
+    public void updateEpic(Epic epic) throws NotFoundException {
         final int id = epic.getId();
         Epic savedEpic = epics.get(id);
         if (savedEpic == null) {
-            return;
+            throw new NotFoundException("Epic id=" + id + " not found.");
         }
         updateEpicStatus(id);
         updateEpicDuration(epic);
@@ -166,16 +176,16 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void updateSubtask(Subtask subtask) {
+    public void updateSubtask(Subtask subtask) throws TaskValidationException, NotFoundException {
         int id = subtask.getId();
         int epicId = subtask.getEpicId();
         Subtask savedSubtask = subtasks.get(id);
         if (savedSubtask == null) {
-            return;
+            throw new NotFoundException("Subtask id=" + id + " not found.");
         }
         final Epic epic = epics.get(epicId);
         if (epic == null) {
-            return;
+            throw new NotFoundException("Epic id=" + epicId + " not found.");
         }
         checkIntersections(subtask);
         subtasks.put(id, subtask);
@@ -211,10 +221,10 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public List<Subtask> getEpicSubtasks(int epicId) {
+    public List<Subtask> getEpicSubtasks(int epicId) throws NotFoundException {
         Epic epic = epics.get(epicId);
         if (epic == null) {
-            return null;
+            throw new NotFoundException("Epic id=" + epicId + " not found.");
         }
         return epic.getSubtasksIds().stream().map(subtasks::get).collect(Collectors.toList());
     }
@@ -225,10 +235,10 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     // Управление статусами эпиков
-    private void updateEpicStatus(int epicId) {
+    private void updateEpicStatus(int epicId) throws NotFoundException {
         Epic epic = epics.get(epicId);
         if (epic == null) {
-            return;
+            throw new NotFoundException("Epic id=" + epicId + " not found.");
         }
         if (epic.getSubtasksIds().isEmpty()) {
             epic.setStatus(Status.NEW);
